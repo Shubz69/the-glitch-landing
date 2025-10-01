@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE GLITCH - AI-Powered Trading Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <a href="index.html" class="logo-link">
+                <span class="logo glitch-brand" data-text="THE GLITCH">THE GLITCH</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="home-container">
+        <!-- Background Effects -->
+        <div class="shared-background"></div>
+        
+        <!-- Floating Particles -->
+        <div class="floating-particles" id="particles"></div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-background">
+                <div class="grid-overlay"></div>
+                <div class="energy-waves"></div>
+            </div>
+            
+            <div class="hero-content">
+                <!-- Left Side - Text Content -->
+                <div class="hero-left">
+                    <div class="hero-badge">
+                        <div class="badge-glow"></div>
+                        <span class="badge-icon">⚡</span>
+                        <span class="badge-text">AI-POWERED TRADING</span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        <span class="title-line">WELCOME TO</span>
+                        <span class="title-highlight" data-text="THE GLITCH">THE GLITCH</span>
+                        <span class="title-line">PLATFORM</span>
+                    </h1>
+                    
+                    <p class="hero-description">
+                        Experience the future of trading with our cutting-edge AI-powered platform. 
+                        <span class="highlight-text">Neural networks</span> analyze markets in real-time, 
+                        <span class="highlight-text">quantum algorithms</span> optimize strategies, 
+                        and <span class="highlight-text">predictive analytics</span> give you the edge.
+                    </p>
+                    
+                    <div class="hero-actions">
+                        <button class="primary-button" onclick="window.location.href='contact.html'">
+                            <span class="button-text">Get Started</span>
+                            <div class="button-particles"></div>
+                            <div class="button-glow"></div>
+                        </button>
+                        <button class="secondary-button" onclick="window.location.href='contact.html'">
+                            <span class="button-text">Learn More</span>
+                            <span class="button-arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Right Side - AI Head -->
+                <div class="hero-right">
+                    <div class="ai-head-wrapper">
+                        <div class="fancy-ai-head" id="aiHead">
+                            <!-- Neural Network Background Canvas -->
+                            <canvas id="neuralCanvas" class="neural-background" width="600" height="600"></canvas>
+                            
+                            <!-- Head Structure -->
+                            <div class="head-structure">
+                                <div class="head-base">
+                                    <div class="head-outer-glow"></div>
+                                    <div class="head-outline"></div>
+                                    <div class="head-inner-glow"></div>
+                                    <div class="head-core"></div>
+                                    <div class="head-energy-field"></div>
+                                </div>
+                                
+                                <!-- Eyes -->
+                                <div class="eyes-container">
+                                    <div class="eye left-eye">
+                                        <div class="eye-outer-ring"></div>
+                                        <div class="eye-iris">
+                                            <div class="eye-pupil"></div>
+                                            <div class="eye-highlight"></div>
+                                            <div class="eye-scan-line"></div>
+                                        </div>
+                                        <div class="eye-ring"></div>
+                                        <div class="eye-glow"></div>
+                                    </div>
+                                    
+                                    <div class="eye right-eye">
+                                        <div class="eye-outer-ring"></div>
+                                        <div class="eye-iris">
+                                            <div class="eye-pupil"></div>
+                                            <div class="eye-highlight"></div>
+                                            <div class="eye-scan-line"></div>
+                                        </div>
+                                        <div class="eye-ring"></div>
+                                        <div class="eye-glow"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Neural Units -->
+                                <div class="neural-units">
+                                    <div class="unit unit-1"><div class="unit-core"></div><div class="unit-pulse"></div></div>
+                                    <div class="unit unit-2"><div class="unit-core"></div><div class="unit-pulse"></div></div>
+                                    <div class="unit unit-3"><div class="unit-core"></div><div class="unit-pulse"></div></div>
+                                    <div class="unit unit-4"><div class="unit-core"></div><div class="unit-pulse"></div></div>
+                                    <div class="unit unit-5"><div class="unit-core"></div><div class="unit-pulse"></div></div>
+                                    <div class="unit unit-6"><div class="unit-core"></div><div class="unit-pulse"></div></div>
+                                    <div class="unit unit-7"><div class="unit-core"></div><div class="unit-pulse"></div></div>
+                                    <div class="unit unit-8"><div class="unit-core"></div><div class="unit-pulse"></div></div>
+                                </div>
+                                
+                                <!-- Status Indicators -->
+                                <div class="status-indicators">
+                                    <div class="status">
+                                        <div class="status-dot"></div>
+                                        <span class="status-text">AI CORE</span>
+                                    </div>
+                                    <div class="status">
+                                        <div class="status-dot"></div>
+                                        <span class="status-text">NEURAL</span>
+                                    </div>
+                                    <div class="status">
+                                        <div class="status-dot"></div>
+                                        <span class="status-text">ACTIVE</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-number">99.9%</div>
+                        <div class="stat-label">Uptime</div>
+                        <div class="stat-glow"></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🚀</div>
+                        <div class="stat-number">50ms</div>
+                        <div class="stat-label">Latency</div>
+                        <div class="stat-glow"></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🔒</div>
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Monitoring</div>
+                        <div class="stat-glow"></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🧠</div>
+                        <div class="stat-number">AI</div>
+                        <div class="stat-label">Powered</div>
+                        <div class="stat-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <span class="footer-logo glitch-brand" data-text="© 2025 THE GLITCH">© 2025 THE GLITCH</span>. All rights reserved.
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
