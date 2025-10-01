@@ -18,6 +18,7 @@ class AIHead3D {
     }
 
     init() {
+        console.log('Initializing 3D AI Head...');
         this.createScene();
         this.createCamera();
         this.createRenderer();
@@ -25,6 +26,7 @@ class AIHead3D {
         this.createLights();
         this.addEventListeners();
         this.animate();
+        console.log('3D AI Head initialization complete');
     }
 
     createScene() {
@@ -43,6 +45,10 @@ class AIHead3D {
 
     createRenderer() {
         const canvas = document.getElementById('ai-head-canvas');
+        if (!canvas) {
+            throw new Error('Canvas element not found');
+        }
+        
         this.renderer = new THREE.WebGLRenderer({ 
             canvas: canvas, 
             antialias: true,
@@ -50,10 +56,16 @@ class AIHead3D {
         });
         
         const container = canvas.parentElement;
+        if (!container) {
+            throw new Error('Canvas container not found');
+        }
+        
         this.renderer.setSize(container.clientWidth, container.clientHeight);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        
+        console.log('Renderer created successfully');
     }
 
     createHead() {
@@ -345,11 +357,42 @@ class AIHead3D {
 
 // Initialize 3D AI Head when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Wait a bit for the page to fully load
-    setTimeout(() => {
-        const aiHead3D = new AIHead3D();
-        
-        // Make it globally accessible for cleanup if needed
-        window.aiHead3D = aiHead3D;
-    }, 100);
+    // Wait for Three.js to load
+    const initAIHead = () => {
+        if (typeof THREE !== 'undefined') {
+            try {
+                const aiHead3D = new AIHead3D();
+                window.aiHead3D = aiHead3D;
+                console.log('3D AI Head initialized successfully');
+            } catch (error) {
+                console.error('Error initializing 3D AI Head:', error);
+                // Fallback: create a simple static AI head
+                createFallbackAIHead();
+            }
+        } else {
+            console.log('Three.js not loaded yet, retrying...');
+            setTimeout(initAIHead, 100);
+        }
+    };
+    
+    // Start initialization
+    initAIHead();
 });
+
+// Fallback AI head if Three.js fails
+function createFallbackAIHead() {
+    const container = document.querySelector('.ai-head-3d-container');
+    if (container) {
+        container.innerHTML = `
+            <div class="fallback-ai-head">
+                <div class="ai-head-silhouette">
+                    <div class="eye left-eye"></div>
+                    <div class="eye right-eye"></div>
+                    <div class="nose"></div>
+                    <div class="mouth"></div>
+                </div>
+                <div class="glow-effect"></div>
+            </div>
+        `;
+    }
+}
