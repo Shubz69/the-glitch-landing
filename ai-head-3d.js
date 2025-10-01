@@ -101,8 +101,8 @@ class AIHead3D {
         }
         positions.needsUpdate = true;
 
-        // Create stunning holographic material
-        const holographicMaterial = new THREE.ShaderMaterial({
+        // Create GLITCH AI material with custom shader
+        const glitchAIMaterial = new THREE.ShaderMaterial({
             vertexShader: `
                 varying vec3 vNormal;
                 varying vec3 vPosition;
@@ -121,35 +121,42 @@ class AIHead3D {
                 varying vec2 vUv;
                 
                 void main() {
-                    // Create holographic colors
-                    vec3 color1 = vec3(0.0, 0.8, 1.0); // Electric blue
-                    vec3 color2 = vec3(0.4, 0.0, 1.0); // Deep purple
-                    vec3 color3 = vec3(1.0, 0.0, 0.8); // Hot pink
+                    // GLITCH AI colors
+                    vec3 glitchColor = vec3(1.0, 0.0, 0.8); // Hot pink
+                    vec3 aiColor = vec3(0.0, 0.8, 1.0); // Electric blue
+                    vec3 accentColor = vec3(0.8, 0.0, 1.0); // Purple
                     
                     // Calculate intensity
                     float intensity = 1.0 - length(vPosition) * 0.3;
                     intensity = pow(intensity, 1.5);
                     
+                    // Create glitch effect
+                    float glitch = sin(vUv.x * 100.0 + time * 10.0) * 0.1 + 0.9;
+                    float glitch2 = sin(vUv.y * 80.0 + time * 8.0) * 0.1 + 0.9;
+                    
                     // Create scan lines
-                    float scanLines = sin(vUv.y * 40.0 + time * 2.0) * 0.1 + 0.9;
+                    float scanLines = sin(vUv.y * 60.0 + time * 3.0) * 0.1 + 0.9;
                     
                     // Create energy waves
-                    float energy = sin(vUv.x * 25.0 + vUv.y * 15.0 + time * 1.5) * 0.4 + 0.6;
+                    float energy = sin(vUv.x * 30.0 + vUv.y * 20.0 + time * 2.0) * 0.4 + 0.6;
                     
-                    // Mix colors
-                    vec3 finalColor = mix(color2, color1, intensity);
-                    finalColor = mix(finalColor, color3, energy * 0.3);
-                    finalColor *= scanLines;
+                    // Mix colors based on position
+                    vec3 finalColor = mix(aiColor, glitchColor, energy * 0.5);
+                    finalColor = mix(finalColor, accentColor, glitch * 0.3);
+                    finalColor *= scanLines * glitch2;
                     
-                    // Add glow
+                    // Add intense glow
                     float glow = pow(intensity, 0.8);
-                    finalColor += glow * 0.2;
+                    finalColor += glow * 0.4;
                     
                     // Create wireframe effect
-                    float wireframe = 1.0 - smoothstep(0.0, 0.015, abs(sin(vUv.x * 80.0)) * abs(sin(vUv.y * 80.0)));
-                    finalColor = mix(finalColor, vec3(1.0), wireframe * 0.9);
+                    float wireframe = 1.0 - smoothstep(0.0, 0.02, abs(sin(vUv.x * 60.0)) * abs(sin(vUv.y * 60.0)));
+                    finalColor = mix(finalColor, vec3(1.0), wireframe * 0.8);
                     
-                    float alpha = 0.7 + intensity * 0.3;
+                    // Add glitch distortion
+                    finalColor += sin(time * 20.0) * 0.1;
+                    
+                    float alpha = 0.8 + intensity * 0.2;
                     
                     gl_FragColor = vec4(finalColor, alpha);
                 }
@@ -161,8 +168,8 @@ class AIHead3D {
             }
         });
 
-        // Create holographic head
-        const headMesh = new THREE.Mesh(headGeometry, holographicMaterial);
+        // Create GLITCH AI head
+        const headMesh = new THREE.Mesh(headGeometry, glitchAIMaterial);
         headMesh.scale.set(1.6, 1.6, 1.6);
         this.head.add(headMesh);
 
@@ -177,6 +184,9 @@ class AIHead3D {
         
         // Create energy field
         this.createEnergyField();
+
+        // Create floating text elements
+        this.createFloatingText();
 
         this.scene.add(this.head);
     }
@@ -500,6 +510,57 @@ class AIHead3D {
         this.energyCircuits = circuit;
     }
 
+    createFloatingText() {
+        // Create floating "GLITCH" and "AI" text elements
+        const textGeometry = new THREE.TextGeometry('GLITCH', {
+            font: new THREE.FontLoader().load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json'),
+            size: 0.1,
+            height: 0.02,
+            curveSegments: 12,
+            bevelEnabled: true,
+            bevelThickness: 0.01,
+            bevelSize: 0.01,
+            bevelOffset: 0,
+            bevelSegments: 5
+        });
+
+        const textMaterial = new THREE.MeshBasicMaterial({
+            color: 0xFF0080,
+            transparent: true,
+            opacity: 0.8
+        });
+
+        const glitchText = new THREE.Mesh(textGeometry, textMaterial);
+        glitchText.position.set(-0.8, 0.5, 1.2);
+        this.head.add(glitchText);
+
+        // Create "AI" text
+        const aiGeometry = new THREE.TextGeometry('AI', {
+            font: new THREE.FontLoader().load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json'),
+            size: 0.08,
+            height: 0.02,
+            curveSegments: 12,
+            bevelEnabled: true,
+            bevelThickness: 0.01,
+            bevelSize: 0.01,
+            bevelOffset: 0,
+            bevelSegments: 5
+        });
+
+        const aiMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00BFFF,
+            transparent: true,
+            opacity: 0.8
+        });
+
+        const aiText = new THREE.Mesh(aiGeometry, aiMaterial);
+        aiText.position.set(0.6, 0.3, 1.2);
+        this.head.add(aiText);
+
+        // Store for animation
+        this.floatingText = { glitchText, aiText };
+    }
+
     createShoulders() {
         const shoulderGeometry = new THREE.SphereGeometry(0.3, 12, 12);
         const shoulderMaterial = new THREE.MeshBasicMaterial({ 
@@ -616,6 +677,14 @@ class AIHead3D {
         // Animate energy circuits
         if (this.energyCircuits) {
             this.energyCircuits.rotation.z += 0.002;
+        }
+
+        // Animate floating text
+        if (this.floatingText) {
+            this.floatingText.glitchText.rotation.y += 0.01;
+            this.floatingText.glitchText.position.y += Math.sin(time * 2) * 0.001;
+            this.floatingText.aiText.rotation.y -= 0.01;
+            this.floatingText.aiText.position.y += Math.sin(time * 2.5) * 0.001;
         }
 
         // Rotate eye rings
