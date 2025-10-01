@@ -294,36 +294,38 @@ document.addEventListener('mousemove', (e) => {
     const eyeX = Math.cos(angle) * distance * 0.06; // Subtle, elegant movement
     const eyeY = Math.sin(angle) * distance * 0.06;
 
-    // Track eye cores with smooth movement
-    document.querySelectorAll('.eye-core').forEach(core => {
-        core.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
+    // Track eye codes with smooth movement
+    document.querySelectorAll('.eye-code').forEach(eyeCode => {
+        eyeCode.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
     });
 
-    // Make wireframe points react to mouse proximity
-    const wireframePoints = document.querySelectorAll('.wireframe-point');
-    wireframePoints.forEach(point => {
-        const pointRect = point.getBoundingClientRect();
-        const pointCenterX = pointRect.left + pointRect.width / 2;
-        const pointCenterY = pointRect.top + pointRect.height / 2;
+    // Make code characters react to mouse proximity
+    const codeChars = document.querySelectorAll('.code-char');
+    codeChars.forEach(char => {
+        const charRect = char.getBoundingClientRect();
+        const charCenterX = charRect.left + charRect.width / 2;
+        const charCenterY = charRect.top + charRect.height / 2;
         
-        const pointDistance = Math.sqrt(
-            Math.pow(e.clientX - pointCenterX, 2) + 
-            Math.pow(e.clientY - pointCenterY, 2)
+        const charDistance = Math.sqrt(
+            Math.pow(e.clientX - charCenterX, 2) + 
+            Math.pow(e.clientY - charCenterY, 2)
         );
         
-        if (pointDistance < 80) {
-            const intensity = (80 - pointDistance) / 80;
-            point.style.transform = `scale(${1 + intensity * 0.3})`;
-            point.style.filter = `brightness(${1 + intensity * 0.5})`;
+        if (charDistance < 60) {
+            const intensity = (60 - charDistance) / 60;
+            char.style.transform = `scale(${1 + intensity * 0.4})`;
+            char.style.filter = `brightness(${1 + intensity * 0.8})`;
+            char.style.textShadow = `0 0 ${15 + intensity * 20}px rgba(0, 191, 255, 1)`;
         } else {
-            point.style.transform = 'scale(1)';
-            point.style.filter = 'brightness(1)';
+            char.style.transform = 'scale(1)';
+            char.style.filter = 'brightness(1)';
+            char.style.textShadow = '0 0 15px rgba(0, 191, 255, 1)';
         }
     });
 
-    // Make wireframe lines react to mouse proximity
-    const wireframeLines = document.querySelectorAll('.wireframe-line');
-    wireframeLines.forEach(line => {
+    // Make code lines react to mouse proximity
+    const codeLines = document.querySelectorAll('.code-line');
+    codeLines.forEach(line => {
         const lineRect = line.getBoundingClientRect();
         const lineCenterX = lineRect.left + lineRect.width / 2;
         const lineCenterY = lineRect.top + lineRect.height / 2;
@@ -333,12 +335,12 @@ document.addEventListener('mousemove', (e) => {
             Math.pow(e.clientY - lineCenterY, 2)
         );
         
-        if (lineDistance < 100) {
-            const intensity = (100 - lineDistance) / 100;
-            line.style.boxShadow = `0 0 ${15 + intensity * 15}px rgba(0, 191, 255, ${0.8 + intensity * 0.2})`;
+        if (lineDistance < 120) {
+            const intensity = (120 - lineDistance) / 120;
+            line.style.textShadow = `0 0 ${10 + intensity * 15}px rgba(0, 191, 255, ${0.8 + intensity * 0.2})`;
             line.style.opacity = 0.8 + intensity * 0.2;
         } else {
-            line.style.boxShadow = '0 0 8px rgba(0, 191, 255, 0.6)';
+            line.style.textShadow = '0 0 10px rgba(0, 191, 255, 0.8)';
             line.style.opacity = 0.8;
         }
     });
@@ -366,8 +368,8 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// Wireframe Click Effects
-document.querySelectorAll('.wireframe-point, .wireframe-line, .eye-core').forEach(element => {
+// Code-Based Click Effects
+document.querySelectorAll('.code-char, .code-line, .eye-code').forEach(element => {
     element.addEventListener('click', () => {
         element.style.animation = 'none';
         element.style.transform = 'scale(1.2)';
