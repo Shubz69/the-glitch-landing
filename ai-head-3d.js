@@ -72,157 +72,86 @@ class AIHead3D {
         // Create head group
         this.head = new THREE.Group();
 
-        // Create sophisticated head geometry with high detail
-        const headGeometry = new THREE.SphereGeometry(1, 64, 64);
+        // Create CLEAR human head shape - much more recognizable
+        const headGeometry = new THREE.SphereGeometry(1, 32, 32);
         
-        // Modify geometry for realistic head proportions
+        // Modify geometry to look like an actual human head
         const positions = headGeometry.attributes.position;
         for (let i = 0; i < positions.count; i++) {
             const x = positions.getX(i);
             const y = positions.getY(i);
             const z = positions.getZ(i);
             
-            // Create more realistic head shape
+            // Create clear head shape - flat back, extended front
             if (z < 0) {
-                positions.setZ(i, z * 0.4); // Flatten back significantly
+                positions.setZ(i, z * 0.3); // Very flat back
             } else {
-                positions.setZ(i, z * 1.6); // Extend front for face
+                positions.setZ(i, z * 1.8); // Extended face area
             }
             
-            // Make it more oval-shaped (taller)
-            if (Math.abs(y) > 0.3) {
-                positions.setY(i, y * 1.4);
+            // Make it clearly oval (taller than wide)
+            if (Math.abs(y) > 0.2) {
+                positions.setY(i, y * 1.6);
             }
             
-            // Slightly narrow the sides for more human proportions
-            if (Math.abs(x) > 0.6) {
-                positions.setX(i, x * 0.85);
+            // Narrow the sides for human proportions
+            if (Math.abs(x) > 0.5) {
+                positions.setX(i, x * 0.8);
             }
         }
         positions.needsUpdate = true;
 
-        // Create stunning holographic material with custom shaders
-        const holographicMaterial = new THREE.ShaderMaterial({
-            vertexShader: `
-                varying vec3 vNormal;
-                varying vec3 vPosition;
-                varying vec2 vUv;
-                
-                void main() {
-                    vNormal = normalize(normalMatrix * normal);
-                    vPosition = position;
-                    vUv = uv;
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                }
-            `,
-            fragmentShader: `
-                varying vec3 vNormal;
-                varying vec3 vPosition;
-                varying vec2 vUv;
-                
-                void main() {
-                    // Create holographic color palette
-                    vec3 color1 = vec3(0.0, 0.7, 1.0); // Electric blue
-                    vec3 color2 = vec3(0.4, 0.0, 1.0); // Deep purple
-                    vec3 color3 = vec3(1.0, 0.0, 0.8); // Hot pink
-                    vec3 color4 = vec3(0.0, 1.0, 0.8); // Cyan
-                    
-                    // Calculate intensity based on position
-                    float intensity = 1.0 - length(vPosition) * 0.2;
-                    intensity = pow(intensity, 2.0);
-                    
-                    // Create holographic scan lines
-                    float scanLines = sin(vUv.y * 50.0 + time * 3.0) * 0.1 + 0.9;
-                    
-                    // Create energy waves
-                    float energy = sin(vUv.x * 30.0 + vUv.y * 20.0 + time * 2.0) * 0.3 + 0.7;
-                    
-                    // Mix colors based on position and time
-                    vec3 finalColor = mix(color2, color1, intensity);
-                    finalColor = mix(finalColor, color3, energy * 0.4);
-                    finalColor = mix(finalColor, color4, scanLines * 0.3);
-                    
-                    // Add glow effect
-                    float glow = pow(intensity, 0.5);
-                    finalColor += glow * 0.3;
-                    
-                    // Create wireframe effect
-                    float wireframe = 1.0 - smoothstep(0.0, 0.02, abs(sin(vUv.x * 100.0)) * abs(sin(vUv.y * 100.0)));
-                    finalColor = mix(finalColor, vec3(1.0), wireframe * 0.8);
-                    
-                    float alpha = 0.8 + intensity * 0.2;
-                    
-                    gl_FragColor = vec4(finalColor, alpha);
-                }
-            `,
+        // Create CLEAR wireframe material - no confusing shaders
+        const wireframeMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00BFFF, // Bright blue
+            wireframe: true,
             transparent: true,
-            side: THREE.DoubleSide,
-            uniforms: {
-                time: { value: 0.0 }
-            }
+            opacity: 0.9
         });
 
-        // Create holographic head
-        const headMesh = new THREE.Mesh(headGeometry, holographicMaterial);
-        headMesh.scale.set(1.5, 1.5, 1.5);
-        this.head.add(headMesh);
+        // Create the main head wireframe
+        const headWireframe = new THREE.Mesh(headGeometry, wireframeMaterial);
+        headWireframe.scale.set(1.8, 1.8, 1.8);
+        this.head.add(headWireframe);
 
-        // Create neural network overlay
-        this.createNeuralNetwork();
+        // Create additional wireframe layers for depth
+        this.createWireframeLayers();
         
-        // Create stunning eyes
+        // Create CLEAR, recognizable eyes
         this.createEyes();
         
-        // Create facial features
+        // Create CLEAR facial features
         this.createFacialFeatures();
         
-        // Create energy field
-        this.createEnergyField();
+        // Create shoulders for context
+        this.createShoulders();
 
         this.scene.add(this.head);
     }
 
-    createNeuralNetwork() {
-        // Create neural network particles
-        const particleCount = 200;
-        const particles = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
-        const colors = new Float32Array(particleCount * 3);
+    createWireframeLayers() {
+        // Create multiple wireframe layers for depth effect
+        const headGeometry = new THREE.SphereGeometry(1, 16, 16);
         
-        for (let i = 0; i < particleCount; i++) {
-            const i3 = i * 3;
-            
-            // Position particles around the head
-            const radius = 2.5 + Math.random() * 1.5;
-            const theta = Math.random() * Math.PI * 2;
-            const phi = Math.random() * Math.PI;
-            
-            positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
-            positions[i3 + 1] = radius * Math.cos(phi);
-            positions[i3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
-            
-            // Random colors
-            colors[i3] = Math.random() * 0.5 + 0.5; // R
-            colors[i3 + 1] = Math.random() * 0.8 + 0.2; // G
-            colors[i3 + 2] = Math.random() * 0.5 + 0.5; // B
-        }
-        
-        particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-        
-        const particleMaterial = new THREE.PointsMaterial({
-            size: 0.05,
-            vertexColors: true,
+        // Outer layer - darker blue
+        const outerWireframe = new THREE.Mesh(headGeometry, new THREE.MeshBasicMaterial({
+            color: 0x0080FF, // Darker blue
+            wireframe: true,
             transparent: true,
-            opacity: 0.8,
-            blending: THREE.AdditiveBlending
-        });
-        
-        const particleSystem = new THREE.Points(particles, particleMaterial);
-        this.head.add(particleSystem);
-        
-        // Store reference for animation
-        this.neuralParticles = particleSystem;
+            opacity: 0.4
+        }));
+        outerWireframe.scale.set(2.0, 2.0, 2.0);
+        this.head.add(outerWireframe);
+
+        // Inner layer - medium blue
+        const innerWireframe = new THREE.Mesh(headGeometry, new THREE.MeshBasicMaterial({
+            color: 0x40BFFF, // Medium blue
+            wireframe: true,
+            transparent: true,
+            opacity: 0.6
+        }));
+        innerWireframe.scale.set(1.6, 1.6, 1.6);
+        this.head.add(innerWireframe);
     }
 
     createEnergyField() {
@@ -263,83 +192,51 @@ class AIHead3D {
     }
 
     createEyes() {
-        // Create futuristic glowing eyes
-        const eyeGeometry = new THREE.SphereGeometry(0.2, 32, 32);
+        // Create CLEAR, recognizable eyes
+        const eyeGeometry = new THREE.SphereGeometry(0.15, 16, 16);
         
-        // Create stunning eye material with custom shader
-        const eyeMaterial = new THREE.ShaderMaterial({
-            vertexShader: `
-                varying vec3 vNormal;
-                varying vec3 vPosition;
-                varying vec2 vUv;
-                
-                void main() {
-                    vNormal = normalize(normalMatrix * normal);
-                    vPosition = position;
-                    vUv = uv;
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                }
-            `,
-            fragmentShader: `
-                varying vec3 vNormal;
-                varying vec3 vPosition;
-                varying vec2 vUv;
-                
-                void main() {
-                    // Create iris pattern
-                    vec2 center = vec2(0.5, 0.5);
-                    float dist = distance(vUv, center);
-                    
-                    // Create concentric circles
-                    float rings = sin(dist * 20.0 + time * 2.0) * 0.5 + 0.5;
-                    
-                    // Create radial lines
-                    float angle = atan(vUv.y - center.y, vUv.x - center.x);
-                    float radial = sin(angle * 8.0 + time * 3.0) * 0.3 + 0.7;
-                    
-                    // Create pupil
-                    float pupil = 1.0 - smoothstep(0.0, 0.3, dist);
-                    
-                    // Mix colors
-                    vec3 irisColor = vec3(0.0, 0.8, 1.0);
-                    vec3 pupilColor = vec3(0.0, 0.0, 0.2);
-                    vec3 glowColor = vec3(0.5, 1.0, 1.0);
-                    
-                    vec3 finalColor = mix(irisColor, pupilColor, pupil);
-                    finalColor = mix(finalColor, glowColor, rings * radial);
-                    
-                    // Add intense glow
-                    float glow = 1.0 - dist;
-                    glow = pow(glow, 2.0);
-                    finalColor += glow * 0.5;
-                    
-                    float alpha = 0.9 + glow * 0.1;
-                    
-                    gl_FragColor = vec4(finalColor, alpha);
-                }
-            `,
+        // Simple, bright eye material
+        const eyeMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00FFFF, // Bright cyan
             transparent: true,
-            uniforms: {
-                time: { value: 0.0 }
-            }
+            opacity: 0.9
         });
 
         // Left eye
         const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-        leftEye.position.set(-0.35, 0.25, 0.95);
+        leftEye.position.set(-0.3, 0.2, 0.9);
         this.head.add(leftEye);
 
         // Right eye
         const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-        rightEye.position.set(0.35, 0.25, 0.95);
+        rightEye.position.set(0.3, 0.2, 0.9);
         this.head.add(rightEye);
 
-        // Create eye glow rings
-        this.createEyeGlowRings();
+        // Add pupils for clarity
+        this.createPupils();
         
         // Store references for animation
         this.leftEye = leftEye;
         this.rightEye = rightEye;
+    }
+
+    createPupils() {
+        const pupilGeometry = new THREE.SphereGeometry(0.05, 12, 12);
+        const pupilMaterial = new THREE.MeshBasicMaterial({
+            color: 0x000080, // Dark blue
+            transparent: true,
+            opacity: 0.9
+        });
+
+        // Left pupil
+        const leftPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+        leftPupil.position.set(-0.3, 0.2, 0.92);
+        this.head.add(leftPupil);
+
+        // Right pupil
+        const rightPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+        rightPupil.position.set(0.3, 0.2, 0.92);
+        this.head.add(rightPupil);
     }
 
     createEyeGlowRings() {
@@ -406,68 +303,33 @@ class AIHead3D {
     }
 
     createFacialFeatures() {
-        // Create futuristic facial features with glowing effects
+        // Create CLEAR, recognizable facial features
         
-        // Nose - sleek geometric shape
-        const noseGeometry = new THREE.ConeGeometry(0.06, 0.2, 16);
-        const noseMaterial = new THREE.ShaderMaterial({
-            vertexShader: `
-                varying vec3 vNormal;
-                void main() {
-                    vNormal = normalize(normalMatrix * normal);
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                }
-            `,
-            fragmentShader: `
-                varying vec3 vNormal;
-                void main() {
-                    vec3 color = vec3(0.0, 0.8, 1.0);
-                    float intensity = dot(vNormal, vec3(0.0, 0.0, 1.0));
-                    intensity = pow(intensity, 2.0);
-                    
-                    gl_FragColor = vec4(color, intensity * 0.8);
-                }
-            `,
+        // Nose - simple wireframe cone
+        const noseGeometry = new THREE.ConeGeometry(0.05, 0.15, 8);
+        const noseMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00BFFF, // Blue
+            wireframe: true,
             transparent: true,
-            side: THREE.DoubleSide
+            opacity: 0.8
         });
         const nose = new THREE.Mesh(noseGeometry, noseMaterial);
-        nose.position.set(0, 0.1, 0.98);
+        nose.position.set(0, 0.05, 0.95);
         nose.rotation.x = Math.PI;
         this.head.add(nose);
 
-        // Mouth - futuristic energy line
-        const mouthGeometry = new THREE.TorusGeometry(0.18, 0.02, 8, 32, Math.PI);
-        const mouthMaterial = new THREE.ShaderMaterial({
-            vertexShader: `
-                varying vec2 vUv;
-                void main() {
-                    vUv = uv;
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                }
-            `,
-            fragmentShader: `
-                varying vec2 vUv;
-                void main() {
-                    vec3 color = vec3(0.0, 1.0, 0.8);
-                    float alpha = sin(vUv.x * 20.0 + time * 5.0) * 0.5 + 0.5;
-                    alpha *= 0.8;
-                    
-                    gl_FragColor = vec4(color, alpha);
-                }
-            `,
+        // Mouth - simple wireframe curve
+        const mouthGeometry = new THREE.TorusGeometry(0.15, 0.02, 8, 16, Math.PI);
+        const mouthMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00BFFF, // Blue
+            wireframe: true,
             transparent: true,
-            uniforms: {
-                time: { value: 0.0 }
-            }
+            opacity: 0.8
         });
         const mouth = new THREE.Mesh(mouthGeometry, mouthMaterial);
-        mouth.position.set(0, -0.25, 0.9);
+        mouth.position.set(0, -0.2, 0.88);
         mouth.rotation.x = Math.PI;
         this.head.add(mouth);
-
-        // Create energy circuits
-        this.createEnergyCircuits();
     }
 
     createEnergyCircuits() {
@@ -501,24 +363,24 @@ class AIHead3D {
     }
 
     createShoulders() {
-        const shoulderGeometry = new THREE.SphereGeometry(0.4, 12, 12);
+        const shoulderGeometry = new THREE.SphereGeometry(0.3, 12, 12);
         const shoulderMaterial = new THREE.MeshBasicMaterial({ 
-            color: 0x5B21B6, // Dark purple
+            color: 0x0080FF, // Blue
             wireframe: true,
             transparent: true, 
-            opacity: 0.6
+            opacity: 0.5
         });
 
         // Left shoulder
         const leftShoulder = new THREE.Mesh(shoulderGeometry, shoulderMaterial);
-        leftShoulder.position.set(-0.9, -0.9, 0);
-        leftShoulder.scale.set(1.2, 0.7, 0.9);
+        leftShoulder.position.set(-0.7, -0.8, 0);
+        leftShoulder.scale.set(1.0, 0.6, 0.8);
         this.head.add(leftShoulder);
 
         // Right shoulder
         const rightShoulder = new THREE.Mesh(shoulderGeometry, shoulderMaterial);
-        rightShoulder.position.set(0.9, -0.9, 0);
-        rightShoulder.scale.set(1.2, 0.7, 0.9);
+        rightShoulder.position.set(0.7, -0.8, 0);
+        rightShoulder.scale.set(1.0, 0.6, 0.8);
         this.head.add(rightShoulder);
     }
 
