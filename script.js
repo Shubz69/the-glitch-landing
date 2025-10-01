@@ -294,80 +294,7 @@ document.addEventListener('mousemove', (e) => {
     const eyeX = Math.cos(angle) * distance * 0.06; // Subtle, elegant movement
     const eyeY = Math.sin(angle) * distance * 0.06;
 
-    // Track eye cores with smooth movement
-    document.querySelectorAll('.eye-core').forEach(eyeCore => {
-        eyeCore.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
-    });
-
-    // Make code nodes react to mouse proximity
-    const codeNodes = document.querySelectorAll('.code-node');
-    codeNodes.forEach(node => {
-        const nodeRect = node.getBoundingClientRect();
-        const nodeCenterX = nodeRect.left + nodeRect.width / 2;
-        const nodeCenterY = nodeRect.top + nodeRect.height / 2;
-        
-        const nodeDistance = Math.sqrt(
-            Math.pow(e.clientX - nodeCenterX, 2) + 
-            Math.pow(e.clientY - nodeCenterY, 2)
-        );
-        
-        if (nodeDistance < 80) {
-            const intensity = (80 - nodeDistance) / 80;
-            node.style.transform = `scale(${1 + intensity * 0.3})`;
-            node.style.filter = `brightness(${1 + intensity * 0.5})`;
-            node.style.textShadow = `0 0 ${20 + intensity * 20}px rgba(0, 191, 255, 1)`;
-        } else {
-            node.style.transform = 'scale(1)';
-            node.style.filter = 'brightness(1)';
-            node.style.textShadow = '0 0 20px rgba(0, 191, 255, 1)';
-        }
-    });
-
-    // Make code characters react to mouse proximity
-    const codeChars = document.querySelectorAll('.code-char');
-    codeChars.forEach(char => {
-        const charRect = char.getBoundingClientRect();
-        const charCenterX = charRect.left + charRect.width / 2;
-        const charCenterY = charRect.top + charRect.height / 2;
-        
-        const charDistance = Math.sqrt(
-            Math.pow(e.clientX - charCenterX, 2) + 
-            Math.pow(e.clientY - charCenterY, 2)
-        );
-        
-        if (charDistance < 60) {
-            const intensity = (60 - charDistance) / 60;
-            char.style.transform = `scale(${1 + intensity * 0.4})`;
-            char.style.filter = `brightness(${1 + intensity * 0.8})`;
-            char.style.textShadow = `0 0 ${15 + intensity * 20}px rgba(0, 191, 255, 1)`;
-        } else {
-            char.style.transform = 'scale(1)';
-            char.style.filter = 'brightness(1)';
-            char.style.textShadow = '0 0 15px rgba(0, 191, 255, 1)';
-        }
-    });
-
-    // Make code lines react to mouse proximity
-    const codeLines = document.querySelectorAll('.code-line');
-    codeLines.forEach(line => {
-        const lineRect = line.getBoundingClientRect();
-        const lineCenterX = lineRect.left + lineRect.width / 2;
-        const lineCenterY = lineRect.top + lineRect.height / 2;
-        
-        const lineDistance = Math.sqrt(
-            Math.pow(e.clientX - lineCenterX, 2) + 
-            Math.pow(e.clientY - lineCenterY, 2)
-        );
-        
-        if (lineDistance < 120) {
-            const intensity = (120 - lineDistance) / 120;
-            line.style.textShadow = `0 0 ${8 + intensity * 15}px rgba(0, 191, 255, ${0.8 + intensity * 0.2})`;
-            line.style.opacity = 0.8 + intensity * 0.2;
-        } else {
-            line.style.textShadow = '0 0 8px rgba(0, 191, 255, 0.8)';
-            line.style.opacity = 0.8;
-        }
-    });
+    // 3D AI Head interactions are handled in ai-head-3d.js
 
     // Make hair strands react to mouse proximity
     const hairStrands = document.querySelectorAll('.hair-strand');
@@ -392,8 +319,8 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// Human AI Head Click Effects
-document.querySelectorAll('.code-node, .code-char, .code-line, .eye-core').forEach(element => {
+// 3D AI Head click effects are handled in ai-head-3d.js
+document.querySelectorAll('.non-existent').forEach(element => {
     element.addEventListener('click', () => {
         element.style.animation = 'none';
         element.style.transform = 'scale(1.2)';
