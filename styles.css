@@ -339,6 +339,7 @@ body {
     z-index: 10;
     opacity: 1;
     visibility: visible;
+    display: block;
 }
 
 /* Head Outline - Human Shape */
@@ -349,6 +350,9 @@ body {
     background: radial-gradient(ellipse at center, rgba(0, 191, 255, 0.1), transparent 70%);
     border-radius: 50% 50% 45% 45%;
     overflow: visible;
+    display: block;
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Forehead Area */
@@ -476,38 +480,40 @@ body {
 /* Code Nodes */
 .code-node {
     font-family: 'Courier New', monospace;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     color: #00BFFF;
     text-shadow: 0 0 20px rgba(0, 191, 255, 1);
     animation: nodePulse 2s ease-in-out infinite;
     text-align: center;
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 1;
     visibility: visible;
     z-index: 15;
+    position: relative;
 }
 
 .code-char {
     font-family: 'Courier New', monospace;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     color: #00BFFF;
     text-shadow: 0 0 15px rgba(0, 191, 255, 1);
     animation: charGlow 1.5s ease-in-out infinite;
     text-align: center;
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 1;
     visibility: visible;
     z-index: 15;
+    position: relative;
 }
 
 /* Shoulders Area */
