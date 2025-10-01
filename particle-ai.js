@@ -102,12 +102,13 @@ class ParticleAIHead {
             positions[i3 + 1] = y;
             positions[i3 + 2] = z;
             
-            // More refined color gradient - brighter cyan in center
+            // Color gradient - white/cyan in center, purple at edges
             const centerDistance = Math.sqrt(x*x + y*y + z*z);
-            const intensity = Math.max(0.3, 1.0 - centerDistance * 0.3) * (0.7 + Math.random() * 0.3);
+            const intensity = Math.max(0.4, 1.0 - centerDistance * 0.4) * (0.8 + Math.random() * 0.2);
             
-            colors[i3] = 0.0 + 0.2 * intensity; // More blue
-            colors[i3 + 1] = 0.6 + 0.4 * intensity; // Brighter cyan
+            // More white/cyan in center, purple at edges
+            colors[i3] = 0.3 + 0.4 * intensity; // More white/blue
+            colors[i3 + 1] = 0.7 + 0.3 * intensity; // Bright cyan/white
             colors[i3 + 2] = 0.9 + 0.1 * intensity; // Bright cyan
             
             sizes[i] = Math.random() * 0.06 + 0.03; // Smaller, more refined particles
@@ -148,8 +149,8 @@ class ParticleAIHead {
             leftEyePositions[i3 + 1] = 0.2 + Math.sin(angle) * radius * 0.3; // Flatter curve
             leftEyePositions[i3 + 2] = 0.92;
             
-            // Brighter cyan for closed eyes
-            leftEyeColors[i3] = 0.0;
+            // Bright white/cyan for closed eyes
+            leftEyeColors[i3] = 0.4;
             leftEyeColors[i3 + 1] = 0.9;
             leftEyeColors[i3 + 2] = 1.0;
         }
@@ -182,8 +183,8 @@ class ParticleAIHead {
             rightEyePositions[i3 + 1] = 0.2 + Math.sin(angle) * radius * 0.3; // Flatter curve
             rightEyePositions[i3 + 2] = 0.92;
             
-            // Brighter cyan for closed eyes
-            rightEyeColors[i3] = 0.0;
+            // Bright white/cyan for closed eyes
+            rightEyeColors[i3] = 0.4;
             rightEyeColors[i3 + 1] = 0.9;
             rightEyeColors[i3 + 2] = 1.0;
         }
@@ -215,9 +216,9 @@ class ParticleAIHead {
             nosePositions[i3 + 1] = 0.0 + Math.sin(angle) * radius;
             nosePositions[i3 + 2] = 0.95;
             
-            noseColors[i3] = 0.2;
-            noseColors[i3 + 1] = 0.6;
-            noseColors[i3 + 2] = 0.9;
+            noseColors[i3] = 0.3;
+            noseColors[i3 + 1] = 0.8;
+            noseColors[i3 + 2] = 1.0;
         }
         
         noseGeometry.setAttribute('position', new THREE.BufferAttribute(nosePositions, 3));
@@ -247,7 +248,7 @@ class ParticleAIHead {
             mouthPositions[i3 + 1] = -0.25 + Math.sin(angle) * radius * 0.5;
             mouthPositions[i3 + 2] = 0.88;
             
-            mouthColors[i3] = 0.0;
+            mouthColors[i3] = 0.3;
             mouthColors[i3 + 1] = 0.9;
             mouthColors[i3 + 2] = 1.0;
         }
@@ -287,13 +288,13 @@ class ParticleAIHead {
             trailPositions[i3 + 1] = r * Math.cos(theta) * 1.4 - 0.1 + flow;
             trailPositions[i3 + 2] = r * Math.sin(theta) * Math.sin(phi) * 0.9 + wave * 0.5;
             
-            // Fade out with distance - more purple at edges
+            // Fade out with distance - more white/cyan
             const distance = Math.sqrt(trailPositions[i3]**2 + trailPositions[i3+1]**2 + trailPositions[i3+2]**2);
-            const fade = Math.max(0, 1.0 - (distance - 1.2) * 0.5);
+            const fade = Math.max(0.3, 1.0 - (distance - 1.2) * 0.3);
             
-            trailColors[i3] = 0.2 + 0.3 * fade; // More purple at edges
-            trailColors[i3 + 1] = 0.4 + 0.4 * fade;
-            trailColors[i3 + 2] = 0.7 + 0.3 * fade;
+            trailColors[i3] = 0.2 + 0.5 * fade; // More white/blue
+            trailColors[i3 + 1] = 0.6 + 0.4 * fade; // Bright cyan
+            trailColors[i3 + 2] = 0.8 + 0.2 * fade; // Bright cyan
         }
         
         trailGeometry.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3));

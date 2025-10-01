@@ -295,15 +295,6 @@ body {
     justify-content: center;
 }
 
-/* Neural Canvas */
-.neural-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.6;
-}
 
 /* AI Head Structure */
 /* 3D AI Head Container */
