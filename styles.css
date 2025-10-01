@@ -1460,7 +1460,6 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 10;
-    overflow: hidden;
 }
 
 /* Free-flowing particles background */
@@ -1474,36 +1473,95 @@ body {
     z-index: 1;
     opacity: 0;
     transition: opacity 1s ease-in-out;
+    overflow: hidden;
 }
 
 .floating-particle {
     position: absolute;
-    background: radial-gradient(circle, rgba(0, 191, 255, 0.8), rgba(0, 191, 255, 0.2));
+    background: radial-gradient(circle, rgba(0, 191, 255, 0.9), rgba(0, 191, 255, 0.1));
     border-radius: 50%;
-    animation: floatAround 20s linear infinite;
-    box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
 }
 
-@keyframes floatAround {
+/* Different movement patterns */
+.float-horizontal {
+    animation: floatHorizontal 20s linear infinite;
+}
+
+.float-vertical {
+    animation: floatVertical 25s linear infinite;
+}
+
+.float-circular {
+    animation: floatCircular 30s linear infinite;
+}
+
+@keyframes floatHorizontal {
     0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 0.2;
+        transform: translateX(-100px) scale(0.5);
+        opacity: 0.1;
     }
     25% {
-        transform: translate(100px, -50px) scale(1.2);
-        opacity: 0.6;
+        transform: translateX(50px) scale(1.2);
+        opacity: 0.8;
     }
     50% {
-        transform: translate(-50px, -100px) scale(0.8);
+        transform: translateX(200px) scale(0.8);
         opacity: 0.4;
     }
     75% {
-        transform: translate(-100px, 50px) scale(1.1);
+        transform: translateX(100px) scale(1.1);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateX(-100px) scale(0.5);
+        opacity: 0.1;
+    }
+}
+
+@keyframes floatVertical {
+    0% {
+        transform: translateY(100px) scale(0.6);
+        opacity: 0.2;
+    }
+    25% {
+        transform: translateY(-50px) scale(1.3);
+        opacity: 0.9;
+    }
+    50% {
+        transform: translateY(-150px) scale(0.7);
+        opacity: 0.3;
+    }
+    75% {
+        transform: translateY(-80px) scale(1.0);
         opacity: 0.7;
     }
     100% {
-        transform: translate(0, 0) scale(1);
+        transform: translateY(100px) scale(0.6);
         opacity: 0.2;
+    }
+}
+
+@keyframes floatCircular {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(0.8);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translate(150px, -100px) rotate(90deg) scale(1.4);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(100px, -200px) rotate(180deg) scale(0.6);
+        opacity: 0.2;
+    }
+    75% {
+        transform: translate(-100px, -150px) rotate(270deg) scale(1.2);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg) scale(0.8);
+        opacity: 0.3;
     }
 }
 

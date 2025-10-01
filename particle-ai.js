@@ -57,7 +57,7 @@ class ParticleAIHead {
 
     createFreeFlowingParticles() {
         // Create free-flowing particles that move around the entire viewport
-        for (let i = 0; i < 200; i++) {
+        for (let i = 0; i < 300; i++) {
             this.createFloatingParticle();
         }
     }
@@ -66,19 +66,31 @@ class ParticleAIHead {
         const particle = document.createElement('div');
         particle.className = 'floating-particle';
         
-        // Random position
+        // Random position across entire viewport
         particle.style.left = Math.random() * 100 + '%';
         particle.style.top = Math.random() * 100 + '%';
         
         // Random size and opacity
-        const size = Math.random() * 4 + 2;
+        const size = Math.random() * 6 + 1;
         particle.style.width = size + 'px';
         particle.style.height = size + 'px';
-        particle.style.opacity = Math.random() * 0.6 + 0.2;
+        particle.style.opacity = Math.random() * 0.8 + 0.1;
         
-        // Random animation duration
-        const duration = Math.random() * 20 + 10;
+        // Random animation duration and delay
+        const duration = Math.random() * 25 + 15;
+        const delay = Math.random() * 5;
         particle.style.animationDuration = duration + 's';
+        particle.style.animationDelay = delay + 's';
+        
+        // Random movement pattern
+        const pattern = Math.random();
+        if (pattern < 0.3) {
+            particle.classList.add('float-horizontal');
+        } else if (pattern < 0.6) {
+            particle.classList.add('float-vertical');
+        } else {
+            particle.classList.add('float-circular');
+        }
         
         this.particlesBackground.appendChild(particle);
         
@@ -88,7 +100,7 @@ class ParticleAIHead {
                 particle.parentNode.removeChild(particle);
                 this.createFloatingParticle();
             }
-        }, duration * 1000);
+        }, (duration + delay) * 1000);
     }
 
     fadeInParticles() {
