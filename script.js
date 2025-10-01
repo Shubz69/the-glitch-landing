@@ -1,70 +1,4 @@
-// ========== NEURAL NETWORK ANIMATION ==========
-const neuralCanvas = document.getElementById('neuralCanvas');
-if (neuralCanvas) {
-    const ctx = neuralCanvas.getContext('2d');
-    neuralCanvas.width = 800;
-    neuralCanvas.height = 800;
-    
-    let particles = [];
-    let connections = [];
-    
-    // Create particles
-    for (let i = 0; i < 80; i++) {
-        particles.push({
-            x: Math.random() * neuralCanvas.width,
-            y: Math.random() * neuralCanvas.height,
-            vx: (Math.random() - 0.5) * 0.5,
-            vy: (Math.random() - 0.5) * 0.5,
-            size: Math.random() * 4 + 2,
-            opacity: Math.random() * 0.5 + 0.3
-        });
-    }
-    
-    function drawNeuralNetwork() {
-        ctx.clearRect(0, 0, neuralCanvas.width, neuralCanvas.height);
-        
-        // Update and draw particles
-        particles.forEach(p => {
-            p.x += p.vx;
-            p.y += p.vy;
-            
-            if (p.x < 0 || p.x > neuralCanvas.width) p.vx *= -1;
-            if (p.y < 0 || p.y > neuralCanvas.height) p.vy *= -1;
-            
-            // Draw particle
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(99, 102, 241, ${p.opacity})`;
-            ctx.fill();
-            
-            // Draw glow
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size + 8, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(139, 92, 246, ${p.opacity * 0.2})`;
-            ctx.fill();
-        });
-        
-        // Draw connections
-        particles.forEach((p1, i) => {
-            particles.slice(i + 1).forEach(p2 => {
-                const distance = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
-                if (distance < 150) {
-                    const opacity = (1 - distance / 150) * 0.3;
-                    ctx.beginPath();
-                    ctx.moveTo(p1.x, p1.y);
-                    ctx.lineTo(p2.x, p2.y);
-                    ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
-                    ctx.lineWidth = 2;
-                    ctx.stroke();
-                }
-            });
-        });
-        
-        requestAnimationFrame(drawNeuralNetwork);
-    }
-    
-    drawNeuralNetwork();
-}
+// ========== SIMPLE AI HEAD INTERACTIONS ==========
 
 // ========== EYE TRACKING ==========
 const eyes = document.querySelectorAll('.eye-iris');
@@ -275,57 +209,11 @@ setInterval(() => {
     });
 }, 5000);
 
-// ========== FUTURISTIC FEMALE AI HEAD INTERACTIONS ==========
-// Beautiful Female AI Eye Tracking
-document.addEventListener('mousemove', (e) => {
-    const aiHead = document.querySelector('.ai-head');
-    if (!aiHead) return;
-
-    const rect = aiHead.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const deltaX = e.clientX - centerX;
-    const deltaY = e.clientY - centerY;
-
-    const angle = Math.atan2(deltaY, deltaX);
-    const distance = Math.min(Math.sqrt(deltaX * deltaX + deltaY * deltaY), 100); // Max eye movement
-
-    const eyeX = Math.cos(angle) * distance * 0.06; // Subtle, elegant movement
-    const eyeY = Math.sin(angle) * distance * 0.06;
-
-    // 3D AI Head interactions are handled in ai-head-3d.js
-
-    // Make hair strands react to mouse proximity
-    const hairStrands = document.querySelectorAll('.hair-strand');
-    hairStrands.forEach(strand => {
-        const strandRect = strand.getBoundingClientRect();
-        const strandCenterX = strandRect.left + strandRect.width / 2;
-        const strandCenterY = strandRect.top + strandRect.height / 2;
-        
-        const strandDistance = Math.sqrt(
-            Math.pow(e.clientX - strandCenterX, 2) + 
-            Math.pow(e.clientY - strandCenterY, 2)
-        );
-        
-        if (strandDistance < 100) {
-            const intensity = (100 - strandDistance) / 100;
-            strand.style.transform = `rotate(var(--rotation, 0deg)) scaleY(${1 + intensity * 0.2})`;
-            strand.style.boxShadow = `0 0 ${15 + intensity * 15}px rgba(99, 102, 241, 1)`;
-        } else {
-            strand.style.transform = 'rotate(var(--rotation, 0deg)) scaleY(1)';
-            strand.style.boxShadow = '0 0 10px rgba(99, 102, 241, 0.8)';
-        }
-    });
-});
-
-// 3D AI Head click effects are handled in ai-head-3d.js
-document.querySelectorAll('.non-existent').forEach(element => {
-    element.addEventListener('click', () => {
-        element.style.animation = 'none';
-        element.style.transform = 'scale(1.2)';
-        element.style.filter = 'brightness(1.5)';
-        
+// ========== SIMPLE AI HEAD INTERACTIONS ==========
+// AI Head Core Click Effects
+document.addEventListener('click', (e) => {
+    const aiHeadCore = document.querySelector('.ai-head-core');
+    if (aiHeadCore && aiHeadCore.contains(e.target)) {
         // Create ripple effect
         const ripple = document.createElement('div');
         ripple.style.position = 'absolute';
@@ -336,77 +224,34 @@ document.querySelectorAll('.non-existent').forEach(element => {
         ripple.style.pointerEvents = 'none';
         ripple.style.zIndex = '1000';
         
-        const rect = element.getBoundingClientRect();
+        const rect = aiHeadCore.getBoundingClientRect();
         ripple.style.left = rect.left + rect.width / 2 + 'px';
         ripple.style.top = rect.top + rect.height / 2 + 'px';
-        ripple.style.width = '20px';
-        ripple.style.height = '20px';
+        ripple.style.width = '50px';
+        ripple.style.height = '50px';
         
         document.body.appendChild(ripple);
         
         setTimeout(() => {
             document.body.removeChild(ripple);
         }, 600);
-        
-        setTimeout(() => {
-            element.style.animation = '';
-            element.style.transform = 'scale(1)';
-            element.style.filter = 'brightness(1)';
-        }, 300);
-    });
-});
-
-// Hair Strand Click Effects
-document.querySelectorAll('.hair-strand').forEach(strand => {
-    strand.addEventListener('click', () => {
-        strand.style.animation = 'none';
-        strand.style.transform = 'rotate(var(--rotation, 0deg)) scaleY(1.3)';
-        strand.style.boxShadow = '0 0 25px rgba(99, 102, 241, 1)';
-        
-        setTimeout(() => {
-            strand.style.animation = 'hairFlow 4s ease-in-out infinite';
-            strand.style.transform = 'rotate(var(--rotation, 0deg)) scaleY(1)';
-            strand.style.boxShadow = '0 0 10px rgba(99, 102, 241, 0.8)';
-        }, 500);
-    });
-});
-
-// Human-like AI Head Breathing Animation
-setInterval(() => {
-    const faceStructure = document.querySelector('.face-structure');
-    if (faceStructure) {
-        faceStructure.style.animation = 'none';
-        faceStructure.style.transform = 'perspective(1500px) rotateX(-3deg) rotateY(2deg) scale(1.02)';
-        setTimeout(() => {
-            faceStructure.style.animation = '';
-            faceStructure.style.transform = 'perspective(1500px) rotateX(-3deg) rotateY(2deg) scale(1)';
-        }, 2000);
     }
-}, 5000); // Breathe every 5 seconds
+});
 
-// Blinking Animation
-setInterval(() => {
-    const eyeLashes = document.querySelectorAll('.lash');
-    eyeLashes.forEach(lash => {
-        lash.style.animation = 'none';
-        setTimeout(() => {
-            lash.style.animation = 'lashFlutter 3s ease-in-out infinite';
-        }, 50);
+// Orbital Ring Interactions
+document.querySelectorAll('.ring').forEach(ring => {
+    ring.addEventListener('mouseenter', () => {
+        ring.style.animationPlayState = 'paused';
+        ring.style.transform = 'scale(1.1)';
+        ring.style.opacity = '1';
     });
-}, 4000); // Blink every 4 seconds
-
-// Random Particle Generation
-setInterval(() => {
-    const particles = document.querySelectorAll('.particle');
-    particles.forEach(particle => {
-        if (Math.random() > 0.7) {
-            particle.style.animation = 'none';
-            setTimeout(() => {
-                particle.style.animation = 'particleFloat 3s ease-in-out infinite';
-            }, 100);
-        }
+    
+    ring.addEventListener('mouseleave', () => {
+        ring.style.animationPlayState = 'running';
+        ring.style.transform = 'scale(1)';
+        ring.style.opacity = '0.6';
     });
-}, 2000);
+});
 
 console.log('🚀 THE GLITCH - AI Trading Platform Loaded');
 

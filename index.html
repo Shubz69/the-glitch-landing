@@ -56,27 +56,64 @@
                 <div class="ai-showcase fade-in-scale">
                     <div class="ai-container">
                         
-                        <!-- Particle AI Head -->
-                        <div class="particle-ai-container">
-                            <canvas id="particleCanvas"></canvas>
-                        </div>
-                        
-                        <!-- Free-flowing particles background -->
-                        <div class="particles-background" id="particlesBackground"></div>
-                        
-                        <!-- Status Display -->
-                        <div class="ai-status">
-                            <div class="status-item">
-                                <div class="status-dot active"></div>
-                                <span>NEURAL CORE</span>
+                        <!-- Simple AI Head with Eyes and Circles -->
+                        <div class="ai-head-container">
+                            <!-- Orbital Rings -->
+                            <div class="orbital-rings">
+                                <div class="ring ring-1"></div>
+                                <div class="ring ring-2"></div>
+                                <div class="ring ring-3"></div>
                             </div>
-                            <div class="status-item">
-                                <div class="status-dot active"></div>
-                                <span>ANALYZING</span>
+                            
+                            <!-- AI Head Core -->
+                            <div class="ai-head-core">
+                                <!-- Eyes -->
+                                <div class="eyes">
+                                    <div class="eye">
+                                        <div class="eye-outer"></div>
+                                        <div class="eye-iris">
+                                            <div class="eye-pupil"></div>
+                                            <div class="eye-glare"></div>
+                                            <div class="eye-scanner"></div>
+                                        </div>
+                                    </div>
+                                    <div class="eye">
+                                        <div class="eye-outer"></div>
+                                        <div class="eye-iris">
+                                            <div class="eye-pupil"></div>
+                                            <div class="eye-glare"></div>
+                                            <div class="eye-scanner"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Data Streams -->
+                                <div class="data-streams">
+                                    <div class="stream stream-1"></div>
+                                    <div class="stream stream-2"></div>
+                                    <div class="stream stream-3"></div>
+                                    <div class="stream stream-4"></div>
+                                    <div class="stream stream-5"></div>
+                                    <div class="stream stream-6"></div>
+                                    <div class="stream stream-7"></div>
+                                    <div class="stream stream-8"></div>
+                                </div>
                             </div>
-                            <div class="status-item">
-                                <div class="status-dot active"></div>
-                                <span>OPTIMIZING</span>
+                            
+                            <!-- Status Display -->
+                            <div class="ai-status">
+                                <div class="status-item">
+                                    <div class="status-dot active"></div>
+                                    <span>NEURAL CORE</span>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-dot active"></div>
+                                    <span>ANALYZING</span>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-dot active"></div>
+                                    <span>OPTIMIZING</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -272,16 +309,7 @@
         </footer>
     </div>
 
-    <!-- Three.js Library -->
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
-            }
-        }
-    </script>
     <script src="script.js"></script>
-    <script type="module" src="particle-ai.js"></script>
 </body>
 </html>
 

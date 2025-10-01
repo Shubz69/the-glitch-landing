@@ -295,6 +295,36 @@ body {
     justify-content: center;
 }
 
+/* ========== SIMPLE AI HEAD CONTAINER ========== */
+.ai-head-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.ai-head-core {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.8), rgba(139, 92, 246, 0.4), transparent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: core-pulse 2s ease-in-out infinite;
+    box-shadow: 0 0 80px rgba(99, 102, 241, 0.8);
+    border: 3px solid rgba(167, 139, 250, 0.6);
+}
+
+@keyframes core-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
 
 /* AI Head Structure */
 /* 3D AI Head Container */
@@ -1451,128 +1481,6 @@ body {
     color: var(--accent);
 }
 
-/* Particle AI Container */
-.particle-ai-container {
-    position: relative;
-    width: 100%;
-    height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-}
-
-/* Free-flowing particles background */
-.particles-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    overflow: hidden;
-}
-
-.floating-particle {
-    position: absolute;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.9), rgba(139, 92, 246, 0.3));
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
-    width: 3px;
-    height: 3px;
-}
-
-/* Different movement patterns */
-.float-horizontal {
-    animation: floatHorizontal 20s linear infinite;
-}
-
-.float-vertical {
-    animation: floatVertical 25s linear infinite;
-}
-
-.float-circular {
-    animation: floatCircular 30s linear infinite;
-}
-
-@keyframes floatHorizontal {
-    0% {
-        transform: translateX(-100px) scale(0.5);
-        opacity: 0.1;
-    }
-    25% {
-        transform: translateX(50px) scale(1.2);
-        opacity: 0.8;
-    }
-    50% {
-        transform: translateX(200px) scale(0.8);
-        opacity: 0.4;
-    }
-    75% {
-        transform: translateX(100px) scale(1.1);
-        opacity: 0.6;
-    }
-    100% {
-        transform: translateX(-100px) scale(0.5);
-        opacity: 0.1;
-    }
-}
-
-@keyframes floatVertical {
-    0% {
-        transform: translateY(100px) scale(0.6);
-        opacity: 0.2;
-    }
-    25% {
-        transform: translateY(-50px) scale(1.3);
-        opacity: 0.9;
-    }
-    50% {
-        transform: translateY(-150px) scale(0.7);
-        opacity: 0.3;
-    }
-    75% {
-        transform: translateY(-80px) scale(1.0);
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateY(100px) scale(0.6);
-        opacity: 0.2;
-    }
-}
-
-@keyframes floatCircular {
-    0% {
-        transform: translate(0, 0) rotate(0deg) scale(0.8);
-        opacity: 0.3;
-    }
-    25% {
-        transform: translate(150px, -100px) rotate(90deg) scale(1.4);
-        opacity: 0.8;
-    }
-    50% {
-        transform: translate(100px, -200px) rotate(180deg) scale(0.6);
-        opacity: 0.2;
-    }
-    75% {
-        transform: translate(-100px, -150px) rotate(270deg) scale(1.2);
-        opacity: 0.9;
-    }
-    100% {
-        transform: translate(0, 0) rotate(360deg) scale(0.8);
-        opacity: 0.3;
-    }
-}
-
-#particleCanvas {
-    width: 100%;
-    height: 100%;
-    display: block;
-    border-radius: 20px;
-}
 
 
 
