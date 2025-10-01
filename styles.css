@@ -602,6 +602,56 @@ body {
     color: var(--accent);
 }
 
+/* Philosophy Section */
+.philosophy-section {
+    margin: 4rem 0;
+    text-align: center;
+}
+
+.philosophy-text {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem;
+    background: rgba(99, 102, 241, 0.05);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.philosophy-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    letter-spacing: 3px;
+}
+
+.philosophy-quote {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: var(--accent);
+    font-family: var(--font-secondary);
+    font-style: italic;
+    position: relative;
+}
+
+.philosophy-quote::before,
+.philosophy-quote::after {
+    content: '"';
+    font-size: 3rem;
+    color: var(--primary);
+    opacity: 0.5;
+    position: absolute;
+    top: -10px;
+}
+
+.philosophy-quote::before {
+    left: -30px;
+}
+
+.philosophy-quote::after {
+    right: -30px;
+}
+
 /* AI Info Cards */
 .ai-info-cards {
     display: flex;
