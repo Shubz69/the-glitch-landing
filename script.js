@@ -294,9 +294,33 @@ document.addEventListener('mousemove', (e) => {
     const eyeX = Math.cos(angle) * distance * 0.06; // Subtle, elegant movement
     const eyeY = Math.sin(angle) * distance * 0.06;
 
-    // Track eye codes with smooth movement
-    document.querySelectorAll('.eye-code').forEach(eyeCode => {
-        eyeCode.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
+    // Track eye cores with smooth movement
+    document.querySelectorAll('.eye-core').forEach(eyeCore => {
+        eyeCore.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
+    });
+
+    // Make code nodes react to mouse proximity
+    const codeNodes = document.querySelectorAll('.code-node');
+    codeNodes.forEach(node => {
+        const nodeRect = node.getBoundingClientRect();
+        const nodeCenterX = nodeRect.left + nodeRect.width / 2;
+        const nodeCenterY = nodeRect.top + nodeRect.height / 2;
+        
+        const nodeDistance = Math.sqrt(
+            Math.pow(e.clientX - nodeCenterX, 2) + 
+            Math.pow(e.clientY - nodeCenterY, 2)
+        );
+        
+        if (nodeDistance < 80) {
+            const intensity = (80 - nodeDistance) / 80;
+            node.style.transform = `scale(${1 + intensity * 0.3})`;
+            node.style.filter = `brightness(${1 + intensity * 0.5})`;
+            node.style.textShadow = `0 0 ${20 + intensity * 20}px rgba(0, 191, 255, 1)`;
+        } else {
+            node.style.transform = 'scale(1)';
+            node.style.filter = 'brightness(1)';
+            node.style.textShadow = '0 0 20px rgba(0, 191, 255, 1)';
+        }
     });
 
     // Make code characters react to mouse proximity
@@ -337,10 +361,10 @@ document.addEventListener('mousemove', (e) => {
         
         if (lineDistance < 120) {
             const intensity = (120 - lineDistance) / 120;
-            line.style.textShadow = `0 0 ${10 + intensity * 15}px rgba(0, 191, 255, ${0.8 + intensity * 0.2})`;
+            line.style.textShadow = `0 0 ${8 + intensity * 15}px rgba(0, 191, 255, ${0.8 + intensity * 0.2})`;
             line.style.opacity = 0.8 + intensity * 0.2;
         } else {
-            line.style.textShadow = '0 0 10px rgba(0, 191, 255, 0.8)';
+            line.style.textShadow = '0 0 8px rgba(0, 191, 255, 0.8)';
             line.style.opacity = 0.8;
         }
     });
@@ -368,8 +392,8 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// Code-Based Click Effects
-document.querySelectorAll('.code-char, .code-line, .eye-code').forEach(element => {
+// Human AI Head Click Effects
+document.querySelectorAll('.code-node, .code-char, .code-line, .eye-core').forEach(element => {
     element.addEventListener('click', () => {
         element.style.animation = 'none';
         element.style.transform = 'scale(1.2)';

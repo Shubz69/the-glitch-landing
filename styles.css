@@ -329,99 +329,179 @@ body {
     perspective: 1500px;
 }
 
-/* Code-Based AI Figure Container */
-.code-ai-container {
+/* Human AI Head Container */
+.human-ai-container {
     position: relative;
-    width: 450px;
-    height: 600px;
-    transform: perspective(1500px) rotateX(-3deg) rotateY(2deg);
+    width: 400px;
+    height: 500px;
+    transform: perspective(1500px) rotateX(-5deg) rotateY(5deg);
     overflow: visible;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     z-index: 10;
     opacity: 1;
     visibility: visible;
 }
 
-/* Head Section */
-.head-section {
+/* Head Outline - Human Shape */
+.head-outline {
     position: relative;
-    width: 300px;
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(0, 191, 255, 0.1), transparent 70%);
+    border-radius: 50% 50% 45% 45%;
+    overflow: visible;
 }
 
-/* Forehead Code */
-.forehead-code {
-    position: relative;
-    width: 280px;
-    height: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.code-line {
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    color: #00BFFF;
-    text-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
-    margin: 2px 0;
-    animation: codeGlow 3s ease-in-out infinite;
-    letter-spacing: 1px;
-    opacity: 1;
-    visibility: visible;
-    z-index: 15;
-}
-
-.line-1 { animation-delay: 0s; }
-.line-2 { animation-delay: 0.5s; }
-.line-3 { animation-delay: 1s; }
-.line-4 { animation-delay: 1.5s; }
-.line-5 { animation-delay: 2s; }
-
-/* Eyes Section */
-.eyes-section {
-    position: relative;
+/* Forehead Area */
+.forehead-area {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 200px;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Eyes Area */
+.eyes-area {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
     height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .eye {
     position: relative;
-    width: 80px;
+    width: 60px;
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.eye-code {
+.eye-core {
+    position: absolute;
+    width: 30px;
+    height: 30px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    animation: eyeCorePulse 2s ease-in-out infinite;
+}
+
+.eye-ring {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    animation: eyeRingRotate 4s linear infinite;
+}
+
+/* Nose Area */
+.nose-area {
+    position: absolute;
+    top: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Mouth Area */
+.mouth-area {
+    position: absolute;
+    top: 220px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 3px;
-    animation: eyeCodePulse 2s ease-in-out infinite;
+}
+
+/* Cheek Areas */
+.cheek-area {
+    position: absolute;
+    top: 120px;
+    width: 50px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    animation: cheekPulse 3s ease-in-out infinite;
+}
+
+.left-cheek {
+    left: 30px;
+    animation-delay: 0s;
+}
+
+.right-cheek {
+    right: 30px;
+    animation-delay: 1.5s;
+}
+
+/* Jawline Area */
+.jawline-area {
+    position: absolute;
+    top: 260px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Code Nodes */
+.code-node {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    font-weight: bold;
+    color: #00BFFF;
+    text-shadow: 0 0 20px rgba(0, 191, 255, 1);
+    animation: nodePulse 2s ease-in-out infinite;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    visibility: visible;
+    z-index: 15;
 }
 
 .code-char {
     font-family: 'Courier New', monospace;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     color: #00BFFF;
     text-shadow: 0 0 15px rgba(0, 191, 255, 1);
     animation: charGlow 1.5s ease-in-out infinite;
     text-align: center;
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -430,92 +510,29 @@ body {
     z-index: 15;
 }
 
-.code-char:nth-child(1) { animation-delay: 0s; }
-.code-char:nth-child(2) { animation-delay: 0.1s; }
-.code-char:nth-child(3) { animation-delay: 0.2s; }
-.code-char:nth-child(4) { animation-delay: 0.3s; }
-.code-char:nth-child(5) { animation-delay: 0.4s; }
-.code-char:nth-child(6) { animation-delay: 0.5s; }
-.code-char:nth-child(7) { animation-delay: 0.6s; }
-.code-char:nth-child(8) { animation-delay: 0.7s; }
-
-/* Nose Section */
-.nose-section {
-    position: relative;
-    width: 60px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.nose-code {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4px;
-    animation: noseCodePulse 2.5s ease-in-out infinite;
-}
-
-/* Mouth Section */
-.mouth-section {
-    position: relative;
-    width: 120px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.mouth-code {
-    display: flex;
-    gap: 3px;
-    animation: mouthCodePulse 1.8s ease-in-out infinite;
-}
-
-/* Cheek Code */
-.cheek-code {
+/* Shoulders Area */
+.shoulders-area {
     position: absolute;
-    top: 100px;
-    width: 40px;
-    height: 60px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    animation: cheekCodePulse 3s ease-in-out infinite;
-}
-
-.left-cheek {
-    left: 20px;
-    animation-delay: 0s;
-}
-
-.right-cheek {
-    right: 20px;
-    animation-delay: 1.5s;
-}
-
-/* Shoulders Section */
-.shoulders-section {
-    position: relative;
-    width: 400px;
-    height: 150px;
+    top: 320px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
 }
 
-.shoulder-code {
+.shoulder {
     position: relative;
-    width: 150px;
-    height: 120px;
+    width: 120px;
+    height: 80px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    animation: shoulderCodePulse 4s ease-in-out infinite;
+    align-items: center;
+    gap: 5px;
+    animation: shoulderPulse 4s ease-in-out infinite;
 }
 
 .left-shoulder {
@@ -526,8 +543,45 @@ body {
     animation-delay: 2s;
 }
 
-/* Background Particles */
-.background-particles {
+.code-line {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: #00BFFF;
+    text-shadow: 0 0 8px rgba(0, 191, 255, 0.8);
+    letter-spacing: 1px;
+    opacity: 0.8;
+    animation: lineGlow 3s ease-in-out infinite;
+}
+
+/* Connecting Lines */
+.connecting-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.line {
+    position: absolute;
+    background: linear-gradient(45deg, #00BFFF, #0080FF);
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.6);
+    animation: linePulse 3s ease-in-out infinite;
+}
+
+.line-1 { top: 50px; left: 100px; width: 60px; height: 1px; transform: rotate(-15deg); animation-delay: 0s; }
+.line-2 { top: 80px; left: 120px; width: 40px; height: 1px; transform: rotate(10deg); animation-delay: 0.5s; }
+.line-3 { top: 120px; left: 80px; width: 50px; height: 1px; transform: rotate(-20deg); animation-delay: 1s; }
+.line-4 { top: 150px; left: 140px; width: 45px; height: 1px; transform: rotate(15deg); animation-delay: 1.5s; }
+.line-5 { top: 180px; left: 90px; width: 55px; height: 1px; transform: rotate(-10deg); animation-delay: 2s; }
+.line-6 { top: 200px; left: 130px; width: 40px; height: 1px; transform: rotate(20deg); animation-delay: 2.5s; }
+.line-7 { top: 220px; left: 100px; width: 50px; height: 1px; transform: rotate(-5deg); animation-delay: 3s; }
+.line-8 { top: 250px; left: 120px; width: 45px; height: 1px; transform: rotate(25deg); animation-delay: 3.5s; }
+
+/* Floating Particles */
+.floating-particles {
     position: absolute;
     top: 0;
     left: 0;
@@ -540,12 +594,12 @@ body {
 .particle {
     position: absolute;
     font-family: 'Courier New', monospace;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
     color: #00BFFF;
-    text-shadow: 0 0 8px rgba(0, 191, 255, 0.8);
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
     animation: particleFloat 6s ease-in-out infinite;
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 .particle-1 { top: 10%; left: 5%; animation-delay: 0s; }
@@ -558,16 +612,6 @@ body {
 .particle-8 { top: 80%; left: 55%; animation-delay: 3.5s; }
 .particle-9 { top: 15%; left: 45%; animation-delay: 4s; }
 .particle-10 { top: 25%; left: 95%; animation-delay: 4.5s; }
-.particle-11 { top: 35%; left: 5%; animation-delay: 5s; }
-.particle-12 { top: 45%; left: 85%; animation-delay: 5.5s; }
-.particle-13 { top: 55%; left: 15%; animation-delay: 6s; }
-.particle-14 { top: 65%; left: 75%; animation-delay: 6.5s; }
-.particle-15 { top: 75%; left: 25%; animation-delay: 7s; }
-.particle-16 { top: 85%; left: 65%; animation-delay: 7.5s; }
-.particle-17 { top: 12%; left: 35%; animation-delay: 8s; }
-.particle-18 { top: 22%; left: 55%; animation-delay: 8.5s; }
-.particle-19 { top: 32%; left: 95%; animation-delay: 9s; }
-.particle-20 { top: 42%; left: 5%; animation-delay: 9.5s; }
 
 /* AI Glow Effect */
 .ai-glow {
@@ -1079,15 +1123,15 @@ body {
     100% { transform: scale(2); opacity: 0; }
 }
 
-/* Code-Based AI Animations */
-@keyframes codeGlow {
+/* Human AI Head Animations */
+@keyframes nodePulse {
     0%, 100% { 
-        text-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
-        opacity: 0.8;
+        text-shadow: 0 0 20px rgba(0, 191, 255, 1);
+        transform: scale(1);
     }
     50% { 
-        text-shadow: 0 0 20px rgba(0, 191, 255, 1);
-        opacity: 1;
+        text-shadow: 0 0 30px rgba(0, 191, 255, 1);
+        transform: scale(1.1);
     }
 }
 
@@ -1102,58 +1146,72 @@ body {
     }
 }
 
-@keyframes eyeCodePulse {
+@keyframes eyeCorePulse {
     0%, 100% { 
         transform: scale(1);
         filter: brightness(1);
     }
     50% { 
-        transform: scale(1.05);
-        filter: brightness(1.3);
+        transform: scale(1.1);
+        filter: brightness(1.5);
     }
 }
 
-@keyframes noseCodePulse {
-    0%, 100% { 
-        transform: scale(1);
-        filter: brightness(0.9);
+@keyframes eyeRingRotate {
+    0% { 
+        transform: rotate(0deg);
+        opacity: 0.8;
     }
     50% { 
-        transform: scale(1.1);
-        filter: brightness(1.2);
+        opacity: 1;
+    }
+    100% { 
+        transform: rotate(360deg);
+        opacity: 0.8;
     }
 }
 
-@keyframes mouthCodePulse {
+@keyframes cheekPulse {
     0%, 100% { 
         transform: scale(1);
         filter: brightness(0.8);
     }
     50% { 
-        transform: scale(1.08);
-        filter: brightness(1.1);
+        transform: scale(1.05);
+        filter: brightness(1.2);
     }
 }
 
-@keyframes cheekCodePulse {
+@keyframes shoulderPulse {
     0%, 100% { 
         transform: scale(1);
         filter: brightness(0.7);
     }
     50% { 
-        transform: scale(1.06);
+        transform: scale(1.02);
         filter: brightness(1);
     }
 }
 
-@keyframes shoulderCodePulse {
+@keyframes lineGlow {
     0%, 100% { 
-        transform: scale(1);
-        filter: brightness(0.6);
+        text-shadow: 0 0 8px rgba(0, 191, 255, 0.8);
+        opacity: 0.8;
     }
     50% { 
-        transform: scale(1.03);
-        filter: brightness(0.9);
+        text-shadow: 0 0 15px rgba(0, 191, 255, 1);
+        opacity: 1;
+    }
+}
+
+@keyframes linePulse {
+    0%, 100% { 
+        box-shadow: 0 0 10px rgba(0, 191, 255, 0.6);
+        opacity: 0.8;
+    }
+    50% { 
+        box-shadow: 0 0 20px rgba(0, 191, 255, 1);
+        opacity: 1;
     }
 }
 
