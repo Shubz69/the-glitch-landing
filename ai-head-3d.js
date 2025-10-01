@@ -96,12 +96,12 @@ class AIHead3D {
         }
         positions.needsUpdate = true;
 
-        // Create wireframe material with glowing lines
+        // Create wireframe material with glowing lines - blue-purple theme
         const wireframeMaterial = new THREE.MeshBasicMaterial({
-            color: 0x00BFFF,
+            color: 0x6B46C1, // Purple-blue
             wireframe: true,
             transparent: true,
-            opacity: 0.8
+            opacity: 0.9
         });
 
         // Create wireframe head
@@ -128,103 +128,153 @@ class AIHead3D {
         // Create multiple wireframe layers for depth effect
         const headGeometry = new THREE.SphereGeometry(1, 16, 16);
         
-        // Outer layer
+        // Outer layer - darker purple
         const outerWireframe = new THREE.Mesh(headGeometry, new THREE.MeshBasicMaterial({
-            color: 0x0080FF,
+            color: 0x4C1D95, // Dark purple
             wireframe: true,
             transparent: true,
-            opacity: 0.3
+            opacity: 0.4
         }));
         outerWireframe.scale.set(1.4, 1.4, 1.4);
         this.head.add(outerWireframe);
 
-        // Inner layer
+        // Inner layer - medium purple
         const innerWireframe = new THREE.Mesh(headGeometry, new THREE.MeshBasicMaterial({
-            color: 0x00BFFF,
+            color: 0x7C3AED, // Medium purple
             wireframe: true,
             transparent: true,
-            opacity: 0.6
+            opacity: 0.7
         }));
         innerWireframe.scale.set(1.1, 1.1, 1.1);
         this.head.add(innerWireframe);
     }
 
     createEyes() {
-        // Left eye - bright glowing sphere
-        const leftEyeGeometry = new THREE.SphereGeometry(0.2, 16, 16);
+        // Create more human-like eyes with iris and pupil
+        const eyeGeometry = new THREE.SphereGeometry(0.18, 16, 16);
+        
+        // Eye material - blue-purple with glow
         const eyeMaterial = new THREE.MeshBasicMaterial({
-            color: 0x00FFFF,
+            color: 0x8B5CF6, // Purple-blue
             transparent: true,
-            opacity: 0.9
+            opacity: 0.95
         });
 
-        const leftEye = new THREE.Mesh(leftEyeGeometry, eyeMaterial);
-        leftEye.position.set(-0.35, 0.25, 0.9);
+        // Left eye
+        const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+        leftEye.position.set(-0.32, 0.22, 0.92);
         this.head.add(leftEye);
 
         // Right eye
-        const rightEye = new THREE.Mesh(leftEyeGeometry, eyeMaterial);
-        rightEye.position.set(0.35, 0.25, 0.9);
+        const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+        rightEye.position.set(0.32, 0.22, 0.92);
         this.head.add(rightEye);
 
+        // Add pupils
+        this.createPupils();
+        
         // Eye rings - glowing wireframe circles
         this.createEyeRings();
     }
 
+    createPupils() {
+        const pupilGeometry = new THREE.SphereGeometry(0.08, 12, 12);
+        const pupilMaterial = new THREE.MeshBasicMaterial({
+            color: 0x1E1B4B, // Dark purple
+            transparent: true,
+            opacity: 0.9
+        });
+
+        // Left pupil
+        const leftPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+        leftPupil.position.set(-0.32, 0.22, 0.95);
+        this.head.add(leftPupil);
+
+        // Right pupil
+        const rightPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+        rightPupil.position.set(0.32, 0.22, 0.95);
+        this.head.add(rightPupil);
+    }
+
     createEyeRings() {
-        const ringGeometry = new THREE.RingGeometry(0.25, 0.3, 16);
+        const ringGeometry = new THREE.RingGeometry(0.22, 0.28, 16);
         const ringMaterial = new THREE.MeshBasicMaterial({
-            color: 0x00BFFF,
+            color: 0x7C3AED, // Purple
             wireframe: true,
             transparent: true,
-            opacity: 0.8
+            opacity: 0.7
         });
 
         // Left eye ring
         const leftRing = new THREE.Mesh(ringGeometry, ringMaterial);
-        leftRing.position.set(-0.35, 0.25, 0.88);
+        leftRing.position.set(-0.32, 0.22, 0.88);
         leftRing.rotation.x = Math.PI / 2;
         this.head.add(leftRing);
 
         // Right eye ring
         const rightRing = new THREE.Mesh(ringGeometry, ringMaterial);
-        rightRing.position.set(0.35, 0.25, 0.88);
+        rightRing.position.set(0.32, 0.22, 0.88);
         rightRing.rotation.x = Math.PI / 2;
         this.head.add(rightRing);
     }
 
     createFacialFeatures() {
-        // Nose - wireframe cone
-        const noseGeometry = new THREE.ConeGeometry(0.1, 0.3, 8);
+        // Nose - more human-like wireframe cone
+        const noseGeometry = new THREE.ConeGeometry(0.08, 0.25, 8);
         const noseMaterial = new THREE.MeshBasicMaterial({ 
-            color: 0x00BFFF, 
+            color: 0x6B46C1, // Purple-blue
             wireframe: true,
             transparent: true, 
             opacity: 0.8 
         });
         const nose = new THREE.Mesh(noseGeometry, noseMaterial);
-        nose.position.set(0, 0, 0.95);
+        nose.position.set(0, 0.05, 0.96);
         nose.rotation.x = Math.PI;
         this.head.add(nose);
 
-        // Mouth - wireframe torus
-        const mouthGeometry = new THREE.TorusGeometry(0.25, 0.05, 8, 16, Math.PI);
+        // Mouth - more human-like wireframe curve
+        const mouthGeometry = new THREE.TorusGeometry(0.2, 0.03, 8, 16, Math.PI);
         const mouthMaterial = new THREE.MeshBasicMaterial({ 
-            color: 0x00BFFF, 
+            color: 0x7C3AED, // Purple
             wireframe: true,
             transparent: true, 
             opacity: 0.8 
         });
         const mouth = new THREE.Mesh(mouthGeometry, mouthMaterial);
-        mouth.position.set(0, -0.35, 0.85);
+        mouth.position.set(0, -0.3, 0.88);
         mouth.rotation.x = Math.PI;
         this.head.add(mouth);
+
+        // Add eyebrows for more human appearance
+        this.createEyebrows();
+    }
+
+    createEyebrows() {
+        const eyebrowGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.3, 8);
+        const eyebrowMaterial = new THREE.MeshBasicMaterial({
+            color: 0x6B46C1, // Purple-blue
+            wireframe: true,
+            transparent: true,
+            opacity: 0.7
+        });
+
+        // Left eyebrow
+        const leftEyebrow = new THREE.Mesh(eyebrowGeometry, eyebrowMaterial);
+        leftEyebrow.position.set(-0.25, 0.4, 0.9);
+        leftEyebrow.rotation.z = -0.2;
+        this.head.add(leftEyebrow);
+
+        // Right eyebrow
+        const rightEyebrow = new THREE.Mesh(eyebrowGeometry, eyebrowMaterial);
+        rightEyebrow.position.set(0.25, 0.4, 0.9);
+        rightEyebrow.rotation.z = 0.2;
+        this.head.add(rightEyebrow);
     }
 
     createShoulders() {
         const shoulderGeometry = new THREE.SphereGeometry(0.4, 12, 12);
         const shoulderMaterial = new THREE.MeshBasicMaterial({ 
-            color: 0x0080FF, 
+            color: 0x5B21B6, // Dark purple
             wireframe: true,
             transparent: true, 
             opacity: 0.6
@@ -245,21 +295,21 @@ class AIHead3D {
 
     createLights() {
         // Ambient light for overall illumination
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
+        const ambientLight = new THREE.AmbientLight(0x2D1B69, 0.6); // Purple ambient
         this.scene.add(ambientLight);
 
-        // Point light for glow effect
-        const pointLight = new THREE.PointLight(0x00BFFF, 2, 15);
+        // Point light for glow effect - purple
+        const pointLight = new THREE.PointLight(0x8B5CF6, 2.5, 15); // Purple glow
         pointLight.position.set(0, 0, 3);
         this.scene.add(pointLight);
 
-        // Additional point light for more glow
-        const pointLight2 = new THREE.PointLight(0x0080FF, 1.5, 12);
+        // Additional point light for more glow - blue-purple
+        const pointLight2 = new THREE.PointLight(0x6B46C1, 2, 12); // Blue-purple
         pointLight2.position.set(2, 2, 2);
         this.scene.add(pointLight2);
 
-        // Directional light
-        const directionalLight = new THREE.DirectionalLight(0x00BFFF, 0.8);
+        // Directional light - purple
+        const directionalLight = new THREE.DirectionalLight(0x7C3AED, 1); // Purple
         directionalLight.position.set(1, 1, 1);
         this.scene.add(directionalLight);
     }
