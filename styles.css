@@ -329,278 +329,287 @@ body {
     perspective: 1500px;
 }
 
-/* Human-like Face Structure */
-.face-structure {
+/* Wireframe AI Head Structure */
+.wireframe-head {
     position: relative;
-    width: 380px;
-    height: 480px;
-    transform: perspective(1500px) rotateX(-3deg) rotateY(2deg);
-    background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.05), transparent 80%);
-    border-radius: 50% 50% 50% 50%;
+    width: 400px;
+    height: 500px;
+    transform: perspective(1500px) rotateX(-5deg) rotateY(5deg);
     overflow: visible;
 }
 
-/* Forehead Section */
-.forehead-section {
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 220px;
-    height: 90px;
-}
-
-.forehead-glow {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 180px;
-    height: 50px;
-    background: radial-gradient(ellipse, rgba(99, 102, 241, 0.1), transparent);
-    border-radius: 50%;
-    animation: foreheadGlow 4s ease-in-out infinite;
-}
-
-.neural-circuit {
-    position: absolute;
-    background: linear-gradient(45deg, #6366F1, #8B5CF6);
-    box-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
-    animation: circuitPulse 3s ease-in-out infinite;
-}
-
-.circuit-1 {
-    top: 30px;
-    left: 40px;
-    width: 60px;
-    height: 1px;
-    transform: rotate(-15deg);
-    animation-delay: 0s;
-}
-
-.circuit-2 {
-    top: 50px;
-    right: 40px;
-    width: 50px;
-    height: 1px;
-    transform: rotate(15deg);
-    animation-delay: 1.5s;
-}
-
-/* Eyes Section */
-.eyes-section {
-    position: absolute;
-    top: 110px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 100px;
-}
-
-.eye-container {
+/* Head Outline */
+.head-outline {
     position: relative;
-    width: 70px;
-    height: 50px;
-}
-
-.eyebrow {
-    position: absolute;
-    top: -15px;
-    left: 5px;
-    width: 60px;
-    height: 8px;
-    background: linear-gradient(45deg, #6366F1, #8B5CF6);
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
-    animation: eyebrowGlow 3s ease-in-out infinite;
-}
-
-.left-eyebrow {
-    transform: rotate(-5deg);
-}
-
-.right-eyebrow {
-    transform: rotate(5deg);
-}
-
-.eye-socket {
-    position: absolute;
     width: 100%;
     height: 100%;
-    border: 2px solid rgba(99, 102, 241, 0.3);
-    border-radius: 50%;
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
-    animation: socketGlow 2s ease-in-out infinite;
 }
 
-.eye-iris {
+/* Wireframe Points */
+.wireframe-point {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #6366F1, #8B5CF6);
-    animation: irisGlow 2s ease-in-out infinite;
-}
-
-.eye-pupil {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #000;
-    box-shadow: 0 0 6px rgba(99, 102, 241, 0.8);
-}
-
-.eye-highlight {
-    position: absolute;
-    top: 30%;
-    left: 35%;
     width: 6px;
     height: 6px;
+    background: radial-gradient(circle, #00BFFF, #0080FF);
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.8);
+    animation: pointPulse 2s ease-in-out infinite;
 }
 
-.eye-lashes {
+/* Forehead Points */
+.point-1 { top: 50px; left: 100px; animation-delay: 0s; }
+.point-2 { top: 60px; left: 150px; animation-delay: 0.2s; }
+.point-3 { top: 70px; left: 200px; animation-delay: 0.4s; }
+.point-4 { top: 80px; left: 250px; animation-delay: 0.6s; }
+.point-5 { top: 90px; left: 300px; animation-delay: 0.8s; }
+
+/* Eye Points */
+.eye-point {
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #00BFFF, #0080FF);
+    box-shadow: 0 0 20px rgba(0, 191, 255, 1);
+    animation: eyePointPulse 1.5s ease-in-out infinite;
+}
+
+.left-eye-1 { top: 120px; left: 120px; animation-delay: 0s; }
+.left-eye-2 { top: 130px; left: 140px; animation-delay: 0.1s; }
+.left-eye-3 { top: 140px; left: 120px; animation-delay: 0.2s; }
+.left-eye-4 { top: 150px; left: 140px; animation-delay: 0.3s; }
+
+.right-eye-1 { top: 120px; left: 260px; animation-delay: 0s; }
+.right-eye-2 { top: 130px; left: 280px; animation-delay: 0.1s; }
+.right-eye-3 { top: 140px; left: 260px; animation-delay: 0.2s; }
+.right-eye-4 { top: 150px; left: 280px; animation-delay: 0.3s; }
+
+/* Nose Points */
+.nose-point {
+    width: 5px;
+    height: 5px;
+    background: radial-gradient(circle, #00BFFF, #0080FF);
+    box-shadow: 0 0 12px rgba(0, 191, 255, 0.8);
+    animation: nosePointPulse 2s ease-in-out infinite;
+}
+
+.nose-1 { top: 180px; left: 190px; animation-delay: 0s; }
+.nose-2 { top: 200px; left: 200px; animation-delay: 0.2s; }
+.nose-3 { top: 220px; left: 190px; animation-delay: 0.4s; }
+.nose-4 { top: 240px; left: 200px; animation-delay: 0.6s; }
+
+/* Mouth Points */
+.mouth-point {
+    width: 5px;
+    height: 5px;
+    background: radial-gradient(circle, #00BFFF, #0080FF);
+    box-shadow: 0 0 12px rgba(0, 191, 255, 0.8);
+    animation: mouthPointPulse 1.8s ease-in-out infinite;
+}
+
+.mouth-1 { top: 280px; left: 170px; animation-delay: 0s; }
+.mouth-2 { top: 290px; left: 200px; animation-delay: 0.2s; }
+.mouth-3 { top: 300px; left: 230px; animation-delay: 0.4s; }
+.mouth-4 { top: 310px; left: 200px; animation-delay: 0.6s; }
+
+/* Jaw Points */
+.jaw-point {
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, #00BFFF, #0080FF);
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+    animation: jawPointPulse 2.2s ease-in-out infinite;
+}
+
+.jaw-1 { top: 320px; left: 150px; animation-delay: 0s; }
+.jaw-2 { top: 340px; left: 180px; animation-delay: 0.2s; }
+.jaw-3 { top: 360px; left: 200px; animation-delay: 0.4s; }
+.jaw-4 { top: 340px; left: 220px; animation-delay: 0.6s; }
+.jaw-5 { top: 320px; left: 250px; animation-delay: 0.8s; }
+
+/* Chin Points */
+.chin-point {
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, #00BFFF, #0080FF);
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+    animation: chinPointPulse 2.5s ease-in-out infinite;
+}
+
+.chin-1 { top: 380px; left: 180px; animation-delay: 0s; }
+.chin-2 { top: 390px; left: 200px; animation-delay: 0.3s; }
+.chin-3 { top: 400px; left: 220px; animation-delay: 0.6s; }
+
+/* Wireframe Lines */
+.wireframe-lines {
     position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 25px;
-}
-
-.lash {
-    position: absolute;
-    background: linear-gradient(45deg, #6366F1, #8B5CF6);
-    box-shadow: 0 0 6px rgba(99, 102, 241, 0.8);
-    animation: lashFlutter 3s ease-in-out infinite;
-    border-radius: 1px;
-}
-
-.lash-1 {
-    top: 8px;
-    left: 8px;
-    width: 1px;
-    height: 12px;
-    transform: rotate(-20deg);
-    animation-delay: 0s;
-}
-
-.lash-2 {
-    top: 10px;
-    left: 20px;
-    width: 1px;
-    height: 15px;
-    transform: rotate(-10deg);
-    animation-delay: 0.2s;
-}
-
-.lash-3 {
-    top: 12px;
-    left: 32px;
-    width: 1px;
-    height: 18px;
-    transform: rotate(0deg);
-    animation-delay: 0.4s;
-}
-
-.lash-4 {
-    top: 10px;
-    right: 20px;
-    width: 1px;
-    height: 15px;
-    transform: rotate(10deg);
-    animation-delay: 0.6s;
-}
-
-.lash-5 {
-    top: 8px;
-    right: 8px;
-    width: 1px;
-    height: 12px;
-    transform: rotate(20deg);
-    animation-delay: 0.8s;
-}
-
-/* Nose Section */
-.nose-section {
-    position: absolute;
-    top: 180px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 60px;
-}
-
-.nose-bridge {
-    position: absolute;
-    top: 5px;
-    left: 12px;
-    width: 6px;
-    height: 40px;
-    background: linear-gradient(180deg, #6366F1, #8B5CF6);
-    border-radius: 3px;
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
-    animation: noseGlow 2.5s ease-in-out infinite;
-}
-
-.nose-sides {
-    position: absolute;
-    top: 20px;
+    top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.wireframe-line {
+    position: absolute;
+    background: linear-gradient(45deg, #00BFFF, #0080FF);
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.6);
+    animation: lineGlow 3s ease-in-out infinite;
+}
+
+/* Forehead Lines */
+.line-1 { top: 55px; left: 100px; width: 50px; height: 1px; transform: rotate(-10deg); animation-delay: 0s; }
+.line-2 { top: 65px; left: 150px; width: 50px; height: 1px; transform: rotate(5deg); animation-delay: 0.5s; }
+.line-3 { top: 75px; left: 200px; width: 50px; height: 1px; transform: rotate(-5deg); animation-delay: 1s; }
+.line-4 { top: 85px; left: 250px; width: 50px; height: 1px; transform: rotate(10deg); animation-delay: 1.5s; }
+
+/* Eye Lines */
+.eye-line {
+    height: 1px;
+    animation: eyeLineGlow 2s ease-in-out infinite;
+}
+
+.left-eye-line-1 { top: 125px; left: 120px; width: 20px; transform: rotate(-15deg); animation-delay: 0s; }
+.left-eye-line-2 { top: 135px; left: 140px; width: 20px; transform: rotate(10deg); animation-delay: 0.3s; }
+.left-eye-line-3 { top: 145px; left: 120px; width: 20px; transform: rotate(-10deg); animation-delay: 0.6s; }
+
+.right-eye-line-1 { top: 125px; left: 260px; width: 20px; transform: rotate(15deg); animation-delay: 0s; }
+.right-eye-line-2 { top: 135px; left: 280px; width: 20px; transform: rotate(-10deg); animation-delay: 0.3s; }
+.right-eye-line-3 { top: 145px; left: 260px; width: 20px; transform: rotate(10deg); animation-delay: 0.6s; }
+
+/* Nose Lines */
+.nose-line {
+    height: 1px;
+    animation: noseLineGlow 2.5s ease-in-out infinite;
+}
+
+.nose-line-1 { top: 185px; left: 190px; width: 10px; transform: rotate(90deg); animation-delay: 0s; }
+.nose-line-2 { top: 205px; left: 200px; width: 10px; transform: rotate(90deg); animation-delay: 0.5s; }
+.nose-line-3 { top: 225px; left: 190px; width: 10px; transform: rotate(90deg); animation-delay: 1s; }
+
+/* Mouth Lines */
+.mouth-line {
+    height: 1px;
+    animation: mouthLineGlow 1.8s ease-in-out infinite;
+}
+
+.mouth-line-1 { top: 285px; left: 170px; width: 30px; transform: rotate(-5deg); animation-delay: 0s; }
+.mouth-line-2 { top: 295px; left: 200px; width: 30px; transform: rotate(5deg); animation-delay: 0.3s; }
+.mouth-line-3 { top: 305px; left: 170px; width: 30px; transform: rotate(-5deg); animation-delay: 0.6s; }
+
+/* Jaw Lines */
+.jaw-line {
+    height: 1px;
+    animation: jawLineGlow 2.2s ease-in-out infinite;
+}
+
+.jaw-line-1 { top: 325px; left: 150px; width: 30px; transform: rotate(15deg); animation-delay: 0s; }
+.jaw-line-2 { top: 345px; left: 180px; width: 40px; transform: rotate(0deg); animation-delay: 0.4s; }
+.jaw-line-3 { top: 365px; left: 200px; width: 20px; transform: rotate(-15deg); animation-delay: 0.8s; }
+.jaw-line-4 { top: 325px; left: 220px; width: 30px; transform: rotate(-15deg); animation-delay: 1.2s; }
+
+/* Face Outline Lines */
+.outline-line {
+    height: 1px;
+    animation: outlineLineGlow 4s ease-in-out infinite;
+}
+
+.outline-1 { top: 60px; left: 80px; width: 60px; transform: rotate(-30deg); animation-delay: 0s; }
+.outline-2 { top: 100px; left: 50px; width: 80px; transform: rotate(90deg); animation-delay: 0.5s; }
+.outline-3 { top: 200px; left: 40px; width: 100px; transform: rotate(90deg); animation-delay: 1s; }
+.outline-4 { top: 300px; left: 50px; width: 80px; transform: rotate(90deg); animation-delay: 1.5s; }
+.outline-5 { top: 380px; left: 80px; width: 60px; transform: rotate(30deg); animation-delay: 2s; }
+.outline-6 { top: 100px; right: 50px; width: 80px; transform: rotate(90deg); animation-delay: 2.5s; }
+
+/* Glowing Eyes */
+.glowing-eyes {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 120px;
+    z-index: 10;
+}
+
+.eye-glow {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    animation: eyeGlowPulse 2s ease-in-out infinite;
+}
+
+.eye-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #00BFFF, #0080FF);
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(0, 191, 255, 1);
+    animation: eyeCorePulse 1.5s ease-in-out infinite;
+}
+
+.eye-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(0, 191, 255, 0.6);
+    border-radius: 50%;
+    animation: eyeRingRotate 4s linear infinite;
+}
+
+.ring-1 {
     width: 30px;
     height: 30px;
-}
-
-.nose-side {
-    position: absolute;
-    width: 8px;
-    height: 20px;
-    background: linear-gradient(180deg, #6366F1, #8B5CF6);
-    border-radius: 4px;
-    box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
-    animation: nostrilGlow 2s ease-in-out infinite;
-}
-
-.left-nostril {
-    left: 2px;
     animation-delay: 0s;
 }
 
-.right-nostril {
-    right: 2px;
+.ring-2 {
+    width: 40px;
+    height: 40px;
     animation-delay: 1s;
 }
 
-.nose-tip {
-    position: absolute;
-    top: 40px;
-    left: 8px;
-    width: 14px;
-    height: 14px;
-    background: radial-gradient(circle, #8B5CF6, #6366F1);
-    border-radius: 50%;
-    box-shadow: 0 0 15px rgba(139, 92, 246, 0.8);
-    animation: noseTipGlow 2s ease-in-out infinite;
+.ring-3 {
+    width: 50px;
+    height: 50px;
+    animation-delay: 2s;
 }
 
-.nose-glow {
+/* Data Particles */
+.data-particles {
     position: absolute;
-    top: 35px;
-    left: 5px;
-    width: 20px;
-    height: 20px;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent);
-    border-radius: 50%;
-    animation: noseGlowPulse 1.5s ease-in-out infinite;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
 }
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: radial-gradient(circle, #00BFFF, #0080FF);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.8);
+    animation: particleFloat 4s ease-in-out infinite;
+}
+
+.particle-1 { top: 20%; left: 10%; animation-delay: 0s; }
+.particle-2 { top: 30%; left: 80%; animation-delay: 0.5s; }
+.particle-3 { top: 60%; left: 15%; animation-delay: 1s; }
+.particle-4 { top: 70%; left: 85%; animation-delay: 1.5s; }
+.particle-5 { top: 40%; left: 50%; animation-delay: 2s; }
+.particle-6 { top: 80%; left: 30%; animation-delay: 2.5s; }
+.particle-7 { top: 10%; left: 60%; animation-delay: 3s; }
+.particle-8 { top: 50%; left: 90%; animation-delay: 3.5s; }
+.particle-9 { top: 25%; left: 40%; animation-delay: 4s; }
+.particle-10 { top: 75%; left: 70%; animation-delay: 4.5s; }
 
 /* Mouth Section */
 .mouth-section {
@@ -1006,48 +1015,191 @@ body {
     100% { transform: scale(2); opacity: 0; }
 }
 
-/* Human-like AI Head Animations */
-@keyframes foreheadGlow {
+/* Wireframe AI Head Animations */
+@keyframes pointPulse {
     0%, 100% { 
-        background: radial-gradient(ellipse, rgba(99, 102, 241, 0.1), transparent);
         transform: scale(1);
+        box-shadow: 0 0 15px rgba(0, 191, 255, 0.8);
     }
     50% { 
-        background: radial-gradient(ellipse, rgba(99, 102, 241, 0.15), transparent);
-        transform: scale(1.02);
+        transform: scale(1.2);
+        box-shadow: 0 0 25px rgba(0, 191, 255, 1);
     }
 }
 
-@keyframes circuitPulse {
+@keyframes eyePointPulse {
     0%, 100% { 
-        box-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
-        opacity: 0.7;
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(0, 191, 255, 1);
     }
     50% { 
-        box-shadow: 0 0 12px rgba(99, 102, 241, 0.8);
+        transform: scale(1.3);
+        box-shadow: 0 0 35px rgba(0, 191, 255, 1);
+    }
+}
+
+@keyframes nosePointPulse {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 12px rgba(0, 191, 255, 0.8);
+    }
+    50% { 
+        transform: scale(1.2);
+        box-shadow: 0 0 20px rgba(0, 191, 255, 1);
+    }
+}
+
+@keyframes mouthPointPulse {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 12px rgba(0, 191, 255, 0.8);
+    }
+    50% { 
+        transform: scale(1.2);
+        box-shadow: 0 0 20px rgba(0, 191, 255, 1);
+    }
+}
+
+@keyframes jawPointPulse {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+    }
+    50% { 
+        transform: scale(1.2);
+        box-shadow: 0 0 18px rgba(0, 191, 255, 1);
+    }
+}
+
+@keyframes chinPointPulse {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+    }
+    50% { 
+        transform: scale(1.2);
+        box-shadow: 0 0 18px rgba(0, 191, 255, 1);
+    }
+}
+
+@keyframes lineGlow {
+    0%, 100% { 
+        box-shadow: 0 0 8px rgba(0, 191, 255, 0.6);
+        opacity: 0.8;
+    }
+    50% { 
+        box-shadow: 0 0 15px rgba(0, 191, 255, 1);
         opacity: 1;
     }
 }
 
-@keyframes eyebrowGlow {
+@keyframes eyeLineGlow {
     0%, 100% { 
-        box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
-        transform: scale(1);
+        box-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
+        opacity: 0.9;
     }
     50% { 
-        box-shadow: 0 0 15px rgba(99, 102, 241, 0.8);
-        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(0, 191, 255, 1);
+        opacity: 1;
     }
 }
 
-@keyframes socketGlow {
+@keyframes noseLineGlow {
     0%, 100% { 
-        box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        box-shadow: 0 0 8px rgba(0, 191, 255, 0.7);
+        opacity: 0.8;
+    }
+    50% { 
+        box-shadow: 0 0 15px rgba(0, 191, 255, 1);
+        opacity: 1;
+    }
+}
+
+@keyframes mouthLineGlow {
+    0%, 100% { 
+        box-shadow: 0 0 8px rgba(0, 191, 255, 0.7);
+        opacity: 0.8;
+    }
+    50% { 
+        box-shadow: 0 0 15px rgba(0, 191, 255, 1);
+        opacity: 1;
+    }
+}
+
+@keyframes jawLineGlow {
+    0%, 100% { 
+        box-shadow: 0 0 8px rgba(0, 191, 255, 0.6);
+        opacity: 0.7;
+    }
+    50% { 
+        box-shadow: 0 0 15px rgba(0, 191, 255, 1);
+        opacity: 1;
+    }
+}
+
+@keyframes outlineLineGlow {
+    0%, 100% { 
+        box-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
         opacity: 0.6;
     }
     50% { 
-        box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
-        opacity: 0.8;
+        box-shadow: 0 0 15px rgba(0, 191, 255, 0.8);
+        opacity: 0.9;
+    }
+}
+
+@keyframes eyeGlowPulse {
+    0%, 100% { 
+        background: radial-gradient(circle, rgba(0, 191, 255, 0.3), transparent);
+        transform: scale(1);
+    }
+    50% { 
+        background: radial-gradient(circle, rgba(0, 191, 255, 0.6), transparent);
+        transform: scale(1.1);
+    }
+}
+
+@keyframes eyeCorePulse {
+    0%, 100% { 
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 0 0 30px rgba(0, 191, 255, 1);
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.2);
+        box-shadow: 0 0 50px rgba(0, 191, 255, 1);
+    }
+}
+
+@keyframes eyeRingRotate {
+    0% { 
+        transform: translate(-50%, -50%) rotate(0deg);
+        opacity: 0.6;
+    }
+    50% { 
+        opacity: 1;
+    }
+    100% { 
+        transform: translate(-50%, -50%) rotate(360deg);
+        opacity: 0.6;
+    }
+}
+
+@keyframes particleFloat {
+    0% { 
+        transform: translateY(0) translateX(0) scale(0.5);
+        opacity: 0;
+    }
+    20% { 
+        opacity: 1;
+        transform: translateY(-20px) translateX(10px) scale(1);
+    }
+    80% { 
+        opacity: 1;
+        transform: translateY(-60px) translateX(30px) scale(1);
+    }
+    100% { 
+        transform: translateY(-100px) translateX(50px) scale(0.5);
+        opacity: 0;
     }
 }
 

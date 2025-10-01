@@ -294,30 +294,52 @@ document.addEventListener('mousemove', (e) => {
     const eyeX = Math.cos(angle) * distance * 0.06; // Subtle, elegant movement
     const eyeY = Math.sin(angle) * distance * 0.06;
 
-    // Track eyes with smooth movement
-    document.querySelectorAll('.eye-iris').forEach(iris => {
-        iris.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
+    // Track eye cores with smooth movement
+    document.querySelectorAll('.eye-core').forEach(core => {
+        core.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
     });
 
-    // Make facial features react to mouse proximity
-    const facialFeatures = document.querySelectorAll('.neural-circuit, .eyebrow, .eye-socket, .nose-bridge, .nose-side, .nose-tip, .upper-lip, .lower-lip, .jawline, .chin, .cheekbone');
-    facialFeatures.forEach(feature => {
-        const featureRect = feature.getBoundingClientRect();
-        const featureCenterX = featureRect.left + featureRect.width / 2;
-        const featureCenterY = featureRect.top + featureRect.height / 2;
+    // Make wireframe points react to mouse proximity
+    const wireframePoints = document.querySelectorAll('.wireframe-point');
+    wireframePoints.forEach(point => {
+        const pointRect = point.getBoundingClientRect();
+        const pointCenterX = pointRect.left + pointRect.width / 2;
+        const pointCenterY = pointRect.top + pointRect.height / 2;
         
-        const featureDistance = Math.sqrt(
-            Math.pow(e.clientX - featureCenterX, 2) + 
-            Math.pow(e.clientY - featureCenterY, 2)
+        const pointDistance = Math.sqrt(
+            Math.pow(e.clientX - pointCenterX, 2) + 
+            Math.pow(e.clientY - pointCenterY, 2)
         );
         
-        if (featureDistance < 100) {
-            const intensity = (100 - featureDistance) / 100;
-            feature.style.transform = `scale(${1 + intensity * 0.08})`;
-            feature.style.filter = `brightness(${1 + intensity * 0.2})`;
+        if (pointDistance < 80) {
+            const intensity = (80 - pointDistance) / 80;
+            point.style.transform = `scale(${1 + intensity * 0.3})`;
+            point.style.filter = `brightness(${1 + intensity * 0.5})`;
         } else {
-            feature.style.transform = 'scale(1)';
-            feature.style.filter = 'brightness(1)';
+            point.style.transform = 'scale(1)';
+            point.style.filter = 'brightness(1)';
+        }
+    });
+
+    // Make wireframe lines react to mouse proximity
+    const wireframeLines = document.querySelectorAll('.wireframe-line');
+    wireframeLines.forEach(line => {
+        const lineRect = line.getBoundingClientRect();
+        const lineCenterX = lineRect.left + lineRect.width / 2;
+        const lineCenterY = lineRect.top + lineRect.height / 2;
+        
+        const lineDistance = Math.sqrt(
+            Math.pow(e.clientX - lineCenterX, 2) + 
+            Math.pow(e.clientY - lineCenterY, 2)
+        );
+        
+        if (lineDistance < 100) {
+            const intensity = (100 - lineDistance) / 100;
+            line.style.boxShadow = `0 0 ${15 + intensity * 15}px rgba(0, 191, 255, ${0.8 + intensity * 0.2})`;
+            line.style.opacity = 0.8 + intensity * 0.2;
+        } else {
+            line.style.boxShadow = '0 0 8px rgba(0, 191, 255, 0.6)';
+            line.style.opacity = 0.8;
         }
     });
 
@@ -344,12 +366,12 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// Beautiful Click Effects
-document.querySelectorAll('.neural-circuit, .eyebrow, .eye-socket, .nose-bridge, .nose-side, .nose-tip, .upper-lip, .lower-lip, .jawline, .chin, .cheekbone').forEach(feature => {
-    feature.addEventListener('click', () => {
-        feature.style.animation = 'none';
-        feature.style.transform = 'scale(1.2)';
-        feature.style.filter = 'brightness(1.5)';
+// Wireframe Click Effects
+document.querySelectorAll('.wireframe-point, .wireframe-line, .eye-core').forEach(element => {
+    element.addEventListener('click', () => {
+        element.style.animation = 'none';
+        element.style.transform = 'scale(1.2)';
+        element.style.filter = 'brightness(1.5)';
         
         // Create ripple effect
         const ripple = document.createElement('div');
@@ -361,7 +383,7 @@ document.querySelectorAll('.neural-circuit, .eyebrow, .eye-socket, .nose-bridge,
         ripple.style.pointerEvents = 'none';
         ripple.style.zIndex = '1000';
         
-        const rect = feature.getBoundingClientRect();
+        const rect = element.getBoundingClientRect();
         ripple.style.left = rect.left + rect.width / 2 + 'px';
         ripple.style.top = rect.top + rect.height / 2 + 'px';
         ripple.style.width = '20px';
@@ -374,9 +396,9 @@ document.querySelectorAll('.neural-circuit, .eyebrow, .eye-socket, .nose-bridge,
         }, 600);
         
         setTimeout(() => {
-            feature.style.animation = '';
-            feature.style.transform = 'scale(1)';
-            feature.style.filter = 'brightness(1)';
+            element.style.animation = '';
+            element.style.transform = 'scale(1)';
+            element.style.filter = 'brightness(1)';
         }, 300);
     });
 });
