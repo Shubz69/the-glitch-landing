@@ -58,11 +58,12 @@
                         <!-- Neural Background -->
                         <canvas id="neuralCanvas" class="neural-canvas"></canvas>
                         
-                        <!-- Central Focus Area -->
-                        <div class="central-focus">
-                            <div class="focus-content">
-                                <h2 class="focus-title glitch-text" data-text="THE GLITCH">THE GLITCH</h2>
-                                <p class="focus-subtitle">Wealth Building Revolution</p>
+                        <!-- Particle AI Head -->
+                        <div class="particle-ai-container">
+                            <canvas id="particleCanvas"></canvas>
+                            <div class="ai-controls">
+                                <button id="toggleAudio" class="ai-btn">🎤 Audio Reactive</button>
+                                <input id="textInput" placeholder="Type to interact..." class="ai-input" />
                             </div>
                         </div>
                         
@@ -274,7 +275,10 @@
         </footer>
     </div>
 
+    <!-- Three.js Library -->
+    <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
     <script src="script.js"></script>
+    <script src="particle-ai.js"></script>
 </body>
 </html>
 
