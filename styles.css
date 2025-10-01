@@ -339,6 +339,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Head Section */
@@ -371,6 +374,9 @@ body {
     margin: 2px 0;
     animation: codeGlow 3s ease-in-out infinite;
     letter-spacing: 1px;
+    opacity: 1;
+    visibility: visible;
+    z-index: 15;
 }
 
 .line-1 { animation-delay: 0s; }
@@ -419,6 +425,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 1;
+    visibility: visible;
+    z-index: 15;
 }
 
 .code-char:nth-child(1) { animation-delay: 0s; }
