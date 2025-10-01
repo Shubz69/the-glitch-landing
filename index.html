@@ -58,36 +58,72 @@
                         <!-- Neural Background -->
                         <canvas id="neuralCanvas" class="neural-canvas"></canvas>
                         
-                        <!-- AI Head Structure -->
+                        <!-- Voxel AI Head Structure -->
                         <div class="ai-head">
-                            <div class="head-outer-ring"></div>
-                            <div class="head-middle-ring"></div>
-                            <div class="head-inner-ring"></div>
-                            
-                            <!-- Core -->
-                            <div class="head-core">
-                                <div class="core-pulse"></div>
-                                <div class="core-energy"></div>
-                            </div>
-                            
-                            <!-- Eyes -->
-                            <div class="eyes">
-                                <div class="eye left-eye">
-                                    <div class="eye-outer"></div>
-                                    <div class="eye-iris">
-                                        <div class="eye-pupil"></div>
-                                        <div class="eye-glare"></div>
-                                        <div class="eye-scanner"></div>
+                            <!-- Main Voxel Head -->
+                            <div class="voxel-head">
+                                <!-- Face Voxels -->
+                                <div class="face-voxels">
+                                    <!-- Forehead Voxels -->
+                                    <div class="voxel-row row-1">
+                                        <div class="voxel"></div><div class="voxel"></div><div class="voxel"></div><div class="voxel"></div><div class="voxel"></div>
+                                    </div>
+                                    <div class="voxel-row row-2">
+                                        <div class="voxel"></div><div class="voxel"></div><div class="voxel"></div><div class="voxel"></div><div class="voxel"></div>
+                                    </div>
+                                    
+                                    <!-- Eye Area Voxels -->
+                                    <div class="voxel-row row-3">
+                                        <div class="voxel eye-voxel left-eye-area"></div><div class="voxel"></div><div class="voxel nose-voxel"></div><div class="voxel"></div><div class="voxel eye-voxel right-eye-area"></div>
+                                    </div>
+                                    <div class="voxel-row row-4">
+                                        <div class="voxel eye-voxel left-eye-area"></div><div class="voxel"></div><div class="voxel nose-voxel"></div><div class="voxel"></div><div class="voxel eye-voxel right-eye-area"></div>
+                                    </div>
+                                    
+                                    <!-- Mouth Area Voxels -->
+                                    <div class="voxel-row row-5">
+                                        <div class="voxel"></div><div class="voxel mouth-voxel"></div><div class="voxel mouth-voxel"></div><div class="voxel mouth-voxel"></div><div class="voxel"></div>
+                                    </div>
+                                    <div class="voxel-row row-6">
+                                        <div class="voxel"></div><div class="voxel mouth-voxel"></div><div class="voxel mouth-voxel"></div><div class="voxel mouth-voxel"></div><div class="voxel"></div>
+                                    </div>
+                                    
+                                    <!-- Chin Voxels -->
+                                    <div class="voxel-row row-7">
+                                        <div class="voxel"></div><div class="voxel"></div><div class="voxel"></div><div class="voxel"></div><div class="voxel"></div>
                                     </div>
                                 </div>
-                                <div class="eye right-eye">
-                                    <div class="eye-outer"></div>
-                                    <div class="eye-iris">
+                                
+                                <!-- Eyes -->
+                                <div class="eyes-container">
+                                    <div class="eye left-eye">
+                                        <div class="eye-iris"></div>
                                         <div class="eye-pupil"></div>
-                                        <div class="eye-glare"></div>
-                                        <div class="eye-scanner"></div>
+                                        <div class="eye-glow"></div>
+                                    </div>
+                                    <div class="eye right-eye">
+                                        <div class="eye-iris"></div>
+                                        <div class="eye-pupil"></div>
+                                        <div class="eye-glow"></div>
                                     </div>
                                 </div>
+                                
+                                <!-- Speaking Particles -->
+                                <div class="speaking-particles">
+                                    <div class="particle particle-1"></div>
+                                    <div class="particle particle-2"></div>
+                                    <div class="particle particle-3"></div>
+                                    <div class="particle particle-4"></div>
+                                    <div class="particle particle-5"></div>
+                                    <div class="particle particle-6"></div>
+                                    <div class="particle particle-7"></div>
+                                    <div class="particle particle-8"></div>
+                                    <div class="particle particle-9"></div>
+                                    <div class="particle particle-10"></div>
+                                </div>
+                                
+                                <!-- Distortion Effect -->
+                                <div class="distortion-overlay"></div>
                             </div>
                             
                             <!-- Data Streams -->
@@ -331,4 +367,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 

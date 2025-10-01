@@ -275,5 +275,73 @@ setInterval(() => {
     });
 }, 5000);
 
+// ========== VOXEL AI HEAD INTERACTIONS ==========
+// Voxel AI Head Eye Tracking
+document.addEventListener('mousemove', (e) => {
+    const aiHead = document.querySelector('.ai-head');
+    if (!aiHead) return;
+
+    const rect = aiHead.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const deltaX = e.clientX - centerX;
+    const deltaY = e.clientY - centerY;
+
+    const angle = Math.atan2(deltaY, deltaX);
+    const distance = Math.min(Math.sqrt(deltaX * deltaX + deltaY * deltaY), 50); // Max eye movement
+
+    const eyeX = Math.cos(angle) * distance * 0.15; // Reduced movement for subtlety
+    const eyeY = Math.sin(angle) * distance * 0.15;
+
+    // Track eyes
+    document.querySelectorAll('.eye-iris').forEach(iris => {
+        iris.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
+    });
+
+    // Make voxels react to mouse proximity
+    const voxels = document.querySelectorAll('.voxel');
+    voxels.forEach(voxel => {
+        const voxelRect = voxel.getBoundingClientRect();
+        const voxelCenterX = voxelRect.left + voxelRect.width / 2;
+        const voxelCenterY = voxelRect.top + voxelRect.height / 2;
+        
+        const voxelDistance = Math.sqrt(
+            Math.pow(e.clientX - voxelCenterX, 2) + 
+            Math.pow(e.clientY - voxelCenterY, 2)
+        );
+        
+        if (voxelDistance < 100) {
+            const intensity = (100 - voxelDistance) / 100;
+            voxel.style.transform = `translateZ(${intensity * 15}px) scale(${1 + intensity * 0.2})`;
+            voxel.style.boxShadow = `
+                0 0 ${20 + intensity * 20}px rgba(99, 102, 241, ${0.8 + intensity * 0.2}),
+                inset 0 0 ${5 + intensity * 5}px rgba(255, 255, 255, ${0.3 + intensity * 0.2})
+            `;
+        } else {
+            voxel.style.transform = 'translateZ(0px) scale(1)';
+            voxel.style.boxShadow = `
+                0 0 10px rgba(99, 102, 241, 0.8),
+                inset 0 0 5px rgba(255, 255, 255, 0.3)
+            `;
+        }
+    });
+});
+
+// Voxel Click Effects
+document.querySelectorAll('.voxel').forEach(voxel => {
+    voxel.addEventListener('click', () => {
+        voxel.style.animation = 'none';
+        voxel.style.transform = 'translateZ(20px) scale(1.3)';
+        voxel.style.boxShadow = '0 0 30px rgba(99, 102, 241, 1), inset 0 0 15px rgba(255, 255, 255, 0.8)';
+        
+        setTimeout(() => {
+            voxel.style.animation = 'voxelGlow 3s ease-in-out infinite';
+            voxel.style.transform = 'translateZ(0px) scale(1)';
+            voxel.style.boxShadow = '0 0 10px rgba(99, 102, 241, 0.8), inset 0 0 5px rgba(255, 255, 255, 0.3)';
+        }, 500);
+    });
+});
+
 console.log('🚀 THE GLITCH - AI Trading Platform Loaded');
 
