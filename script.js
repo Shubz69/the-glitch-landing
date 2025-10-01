@@ -300,7 +300,7 @@ document.addEventListener('mousemove', (e) => {
     });
 
     // Make facial features react to mouse proximity
-    const facialFeatures = document.querySelectorAll('.neural-line, .neural-node, .eye-outer-ring, .eye-inner-ring, .nose-bridge, .nose-tip, .mouth-outline, .mouth-inner, .jawline-line, .chin-point');
+    const facialFeatures = document.querySelectorAll('.neural-circuit, .eyebrow, .eye-socket, .nose-bridge, .nose-side, .nose-tip, .upper-lip, .lower-lip, .jawline, .chin, .cheekbone');
     facialFeatures.forEach(feature => {
         const featureRect = feature.getBoundingClientRect();
         const featureCenterX = featureRect.left + featureRect.width / 2;
@@ -311,10 +311,10 @@ document.addEventListener('mousemove', (e) => {
             Math.pow(e.clientY - featureCenterY, 2)
         );
         
-        if (featureDistance < 120) {
-            const intensity = (120 - featureDistance) / 120;
-            feature.style.transform = `scale(${1 + intensity * 0.1})`;
-            feature.style.filter = `brightness(${1 + intensity * 0.3})`;
+        if (featureDistance < 100) {
+            const intensity = (100 - featureDistance) / 100;
+            feature.style.transform = `scale(${1 + intensity * 0.08})`;
+            feature.style.filter = `brightness(${1 + intensity * 0.2})`;
         } else {
             feature.style.transform = 'scale(1)';
             feature.style.filter = 'brightness(1)';
@@ -345,7 +345,7 @@ document.addEventListener('mousemove', (e) => {
 });
 
 // Beautiful Click Effects
-document.querySelectorAll('.neural-line, .neural-node, .eye-outer-ring, .eye-inner-ring, .nose-bridge, .nose-tip, .mouth-outline, .mouth-inner, .jawline-line, .chin-point').forEach(feature => {
+document.querySelectorAll('.neural-circuit, .eyebrow, .eye-socket, .nose-bridge, .nose-side, .nose-tip, .upper-lip, .lower-lip, .jawline, .chin, .cheekbone').forEach(feature => {
     feature.addEventListener('click', () => {
         feature.style.animation = 'none';
         feature.style.transform = 'scale(1.2)';
@@ -396,20 +396,18 @@ document.querySelectorAll('.hair-strand').forEach(strand => {
     });
 });
 
-// Philosophy Text Loop with Beautiful Animation
+// Human-like AI Head Breathing Animation
 setInterval(() => {
-    const textLines = document.querySelectorAll('.text-line');
-    textLines.forEach((line, index) => {
+    const faceStructure = document.querySelector('.face-structure');
+    if (faceStructure) {
+        faceStructure.style.animation = 'none';
+        faceStructure.style.transform = 'perspective(1500px) rotateX(-3deg) rotateY(2deg) scale(1.02)';
         setTimeout(() => {
-            line.style.animation = 'none';
-            line.style.opacity = '0';
-            line.style.transform = 'translateY(30px)';
-            setTimeout(() => {
-                line.style.animation = 'textAppear 0.6s ease-in-out forwards';
-            }, 100);
-        }, index * 200);
-    });
-}, 10000); // Restart every 10 seconds
+            faceStructure.style.animation = '';
+            faceStructure.style.transform = 'perspective(1500px) rotateX(-3deg) rotateY(2deg) scale(1)';
+        }, 2000);
+    }
+}, 5000); // Breathe every 5 seconds
 
 // Blinking Animation
 setInterval(() => {
