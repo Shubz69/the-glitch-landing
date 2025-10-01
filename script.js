@@ -275,8 +275,8 @@ setInterval(() => {
     });
 }, 5000);
 
-// ========== PERFECT WIREFRAME AI HEAD INTERACTIONS ==========
-// Perfect Wireframe Eye Tracking
+// ========== FUTURISTIC FEMALE AI HEAD INTERACTIONS ==========
+// Beautiful Female AI Eye Tracking
 document.addEventListener('mousemove', (e) => {
     const aiHead = document.querySelector('.ai-head');
     if (!aiHead) return;
@@ -289,103 +289,151 @@ document.addEventListener('mousemove', (e) => {
     const deltaY = e.clientY - centerY;
 
     const angle = Math.atan2(deltaY, deltaX);
-    const distance = Math.min(Math.sqrt(deltaX * deltaX + deltaY * deltaY), 80); // Max eye movement
+    const distance = Math.min(Math.sqrt(deltaX * deltaX + deltaY * deltaY), 100); // Max eye movement
 
-    const eyeX = Math.cos(angle) * distance * 0.08; // Subtle movement
-    const eyeY = Math.sin(angle) * distance * 0.08;
+    const eyeX = Math.cos(angle) * distance * 0.06; // Subtle, elegant movement
+    const eyeY = Math.sin(angle) * distance * 0.06;
 
-    // Track eyes
+    // Track eyes with smooth movement
     document.querySelectorAll('.eye-iris').forEach(iris => {
         iris.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
     });
 
-    // Make wireframe lines react to mouse proximity
-    const wireframeLines = document.querySelectorAll('.forehead-line, .eye-line, .nose-line, .mouth-line, .jaw-line, .chin-line');
-    wireframeLines.forEach(line => {
-        const lineRect = line.getBoundingClientRect();
-        const lineCenterX = lineRect.left + lineRect.width / 2;
-        const lineCenterY = lineRect.top + lineRect.height / 2;
+    // Make facial features react to mouse proximity
+    const facialFeatures = document.querySelectorAll('.neural-line, .neural-node, .eye-outer-ring, .eye-inner-ring, .nose-bridge, .nose-tip, .mouth-outline, .mouth-inner, .jawline-line, .chin-point');
+    facialFeatures.forEach(feature => {
+        const featureRect = feature.getBoundingClientRect();
+        const featureCenterX = featureRect.left + featureRect.width / 2;
+        const featureCenterY = featureRect.top + featureRect.height / 2;
         
-        const lineDistance = Math.sqrt(
-            Math.pow(e.clientX - lineCenterX, 2) + 
-            Math.pow(e.clientY - lineCenterY, 2)
+        const featureDistance = Math.sqrt(
+            Math.pow(e.clientX - featureCenterX, 2) + 
+            Math.pow(e.clientY - featureCenterY, 2)
         );
         
-        if (lineDistance < 150) {
-            const intensity = (150 - lineDistance) / 150;
-            line.style.boxShadow = `0 0 ${20 + intensity * 20}px rgba(0, 191, 255, ${0.9 + intensity * 0.1})`;
-            line.style.opacity = 0.8 + intensity * 0.2;
+        if (featureDistance < 120) {
+            const intensity = (120 - featureDistance) / 120;
+            feature.style.transform = `scale(${1 + intensity * 0.1})`;
+            feature.style.filter = `brightness(${1 + intensity * 0.3})`;
         } else {
-            line.style.boxShadow = '0 0 12px rgba(0, 191, 255, 0.9)';
-            line.style.opacity = 0.8;
+            feature.style.transform = 'scale(1)';
+            feature.style.filter = 'brightness(1)';
         }
     });
 
-    // Make nodes react to mouse proximity
-    const nodes = document.querySelectorAll('.eye-center, .nose-tip, .mouth-center');
-    nodes.forEach(node => {
-        const nodeRect = node.getBoundingClientRect();
-        const nodeCenterX = nodeRect.left + nodeRect.width / 2;
-        const nodeCenterY = nodeRect.top + nodeRect.height / 2;
+    // Make hair strands react to mouse proximity
+    const hairStrands = document.querySelectorAll('.hair-strand');
+    hairStrands.forEach(strand => {
+        const strandRect = strand.getBoundingClientRect();
+        const strandCenterX = strandRect.left + strandRect.width / 2;
+        const strandCenterY = strandRect.top + strandRect.height / 2;
         
-        const nodeDistance = Math.sqrt(
-            Math.pow(e.clientX - nodeCenterX, 2) + 
-            Math.pow(e.clientY - nodeCenterY, 2)
+        const strandDistance = Math.sqrt(
+            Math.pow(e.clientX - strandCenterX, 2) + 
+            Math.pow(e.clientY - strandCenterY, 2)
         );
         
-        if (nodeDistance < 100) {
-            const intensity = (100 - nodeDistance) / 100;
-            node.style.transform = `scale(${1 + intensity * 0.4})`;
-            node.style.boxShadow = `0 0 ${30 + intensity * 30}px rgba(0, 191, 255, 1)`;
+        if (strandDistance < 100) {
+            const intensity = (100 - strandDistance) / 100;
+            strand.style.transform = `rotate(var(--rotation, 0deg)) scaleY(${1 + intensity * 0.2})`;
+            strand.style.boxShadow = `0 0 ${15 + intensity * 15}px rgba(99, 102, 241, 1)`;
         } else {
-            node.style.transform = 'scale(1)';
-            node.style.boxShadow = '0 0 20px rgba(0, 191, 255, 1)';
+            strand.style.transform = 'rotate(var(--rotation, 0deg)) scaleY(1)';
+            strand.style.boxShadow = '0 0 10px rgba(99, 102, 241, 0.8)';
         }
     });
 });
 
-// Perfect Wireframe Click Effects
-document.querySelectorAll('.forehead-line, .eye-line, .nose-line, .mouth-line, .jaw-line, .chin-line').forEach(line => {
-    line.addEventListener('click', () => {
-        line.style.animation = 'none';
-        line.style.boxShadow = '0 0 30px rgba(0, 191, 255, 1)';
-        line.style.transform = 'scale(1.15)';
+// Beautiful Click Effects
+document.querySelectorAll('.neural-line, .neural-node, .eye-outer-ring, .eye-inner-ring, .nose-bridge, .nose-tip, .mouth-outline, .mouth-inner, .jawline-line, .chin-point').forEach(feature => {
+    feature.addEventListener('click', () => {
+        feature.style.animation = 'none';
+        feature.style.transform = 'scale(1.2)';
+        feature.style.filter = 'brightness(1.5)';
+        
+        // Create ripple effect
+        const ripple = document.createElement('div');
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.background = 'radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent)';
+        ripple.style.transform = 'translate(-50%, -50%)';
+        ripple.style.animation = 'ripple 0.6s ease-out';
+        ripple.style.pointerEvents = 'none';
+        ripple.style.zIndex = '1000';
+        
+        const rect = feature.getBoundingClientRect();
+        ripple.style.left = rect.left + rect.width / 2 + 'px';
+        ripple.style.top = rect.top + rect.height / 2 + 'px';
+        ripple.style.width = '20px';
+        ripple.style.height = '20px';
+        
+        document.body.appendChild(ripple);
         
         setTimeout(() => {
-            line.style.animation = 'lineGlow 3s ease-in-out infinite';
-            line.style.transform = 'scale(1)';
-            line.style.boxShadow = '0 0 12px rgba(0, 191, 255, 0.9)';
-        }, 400);
+            document.body.removeChild(ripple);
+        }, 600);
+        
+        setTimeout(() => {
+            feature.style.animation = '';
+            feature.style.transform = 'scale(1)';
+            feature.style.filter = 'brightness(1)';
+        }, 300);
     });
 });
 
-// Node Click Effects
-document.querySelectorAll('.eye-center, .nose-tip, .mouth-center').forEach(node => {
-    node.addEventListener('click', () => {
-        node.style.animation = 'none';
-        node.style.transform = 'scale(1.8)';
-        node.style.boxShadow = '0 0 40px rgba(0, 191, 255, 1)';
+// Hair Strand Click Effects
+document.querySelectorAll('.hair-strand').forEach(strand => {
+    strand.addEventListener('click', () => {
+        strand.style.animation = 'none';
+        strand.style.transform = 'rotate(var(--rotation, 0deg)) scaleY(1.3)';
+        strand.style.boxShadow = '0 0 25px rgba(99, 102, 241, 1)';
         
         setTimeout(() => {
-            node.style.animation = 'nodePulse 1.5s ease-in-out infinite';
-            node.style.transform = 'scale(1)';
-            node.style.boxShadow = '0 0 20px rgba(0, 191, 255, 1)';
+            strand.style.animation = 'hairFlow 4s ease-in-out infinite';
+            strand.style.transform = 'rotate(var(--rotation, 0deg)) scaleY(1)';
+            strand.style.boxShadow = '0 0 10px rgba(99, 102, 241, 0.8)';
         }, 500);
     });
 });
 
-// Philosophy Text Loop
+// Philosophy Text Loop with Beautiful Animation
 setInterval(() => {
     const textLines = document.querySelectorAll('.text-line');
     textLines.forEach((line, index) => {
         setTimeout(() => {
             line.style.animation = 'none';
+            line.style.opacity = '0';
+            line.style.transform = 'translateY(30px)';
             setTimeout(() => {
-                line.style.animation = 'textAppear 0.5s ease-in-out forwards';
-            }, 50);
-        }, index * 100);
+                line.style.animation = 'textAppear 0.6s ease-in-out forwards';
+            }, 100);
+        }, index * 200);
     });
-}, 8000); // Restart every 8 seconds
+}, 10000); // Restart every 10 seconds
+
+// Blinking Animation
+setInterval(() => {
+    const eyeLashes = document.querySelectorAll('.lash');
+    eyeLashes.forEach(lash => {
+        lash.style.animation = 'none';
+        setTimeout(() => {
+            lash.style.animation = 'lashFlutter 3s ease-in-out infinite';
+        }, 50);
+    });
+}, 4000); // Blink every 4 seconds
+
+// Random Particle Generation
+setInterval(() => {
+    const particles = document.querySelectorAll('.particle');
+    particles.forEach(particle => {
+        if (Math.random() > 0.7) {
+            particle.style.animation = 'none';
+            setTimeout(() => {
+                particle.style.animation = 'particleFloat 3s ease-in-out infinite';
+            }, 100);
+        }
+    });
+}, 2000);
 
 console.log('🚀 THE GLITCH - AI Trading Platform Loaded');
 
