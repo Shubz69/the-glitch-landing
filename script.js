@@ -275,8 +275,8 @@ setInterval(() => {
     });
 }, 5000);
 
-// ========== WIREFRAME AI HEAD INTERACTIONS ==========
-// Wireframe AI Head Eye Tracking
+// ========== PERFECT WIREFRAME AI HEAD INTERACTIONS ==========
+// Perfect Wireframe Eye Tracking
 document.addEventListener('mousemove', (e) => {
     const aiHead = document.querySelector('.ai-head');
     if (!aiHead) return;
@@ -289,18 +289,18 @@ document.addEventListener('mousemove', (e) => {
     const deltaY = e.clientY - centerY;
 
     const angle = Math.atan2(deltaY, deltaX);
-    const distance = Math.min(Math.sqrt(deltaX * deltaX + deltaY * deltaY), 60); // Max eye movement
+    const distance = Math.min(Math.sqrt(deltaX * deltaX + deltaY * deltaY), 80); // Max eye movement
 
-    const eyeX = Math.cos(angle) * distance * 0.1; // Reduced movement for subtlety
-    const eyeY = Math.sin(angle) * distance * 0.1;
+    const eyeX = Math.cos(angle) * distance * 0.08; // Subtle movement
+    const eyeY = Math.sin(angle) * distance * 0.08;
 
     // Track eyes
-    document.querySelectorAll('.eye-iris-glow').forEach(iris => {
+    document.querySelectorAll('.eye-iris').forEach(iris => {
         iris.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
     });
 
     // Make wireframe lines react to mouse proximity
-    const wireframeLines = document.querySelectorAll('.wireframe-line, .eye-line, .nose-line, .mouth-line, .jaw-line');
+    const wireframeLines = document.querySelectorAll('.forehead-line, .eye-line, .nose-line, .mouth-line, .jaw-line, .chin-line');
     wireframeLines.forEach(line => {
         const lineRect = line.getBoundingClientRect();
         const lineCenterX = lineRect.left + lineRect.width / 2;
@@ -311,18 +311,18 @@ document.addEventListener('mousemove', (e) => {
             Math.pow(e.clientY - lineCenterY, 2)
         );
         
-        if (lineDistance < 120) {
-            const intensity = (120 - lineDistance) / 120;
-            line.style.boxShadow = `0 0 ${15 + intensity * 15}px rgba(0, 191, 255, ${0.8 + intensity * 0.2})`;
+        if (lineDistance < 150) {
+            const intensity = (150 - lineDistance) / 150;
+            line.style.boxShadow = `0 0 ${20 + intensity * 20}px rgba(0, 191, 255, ${0.9 + intensity * 0.1})`;
             line.style.opacity = 0.8 + intensity * 0.2;
         } else {
-            line.style.boxShadow = '0 0 10px rgba(0, 191, 255, 0.8)';
+            line.style.boxShadow = '0 0 12px rgba(0, 191, 255, 0.9)';
             line.style.opacity = 0.8;
         }
     });
 
     // Make nodes react to mouse proximity
-    const nodes = document.querySelectorAll('.eye-node, .nose-node, .mouth-node');
+    const nodes = document.querySelectorAll('.eye-center, .nose-tip, .mouth-center');
     nodes.forEach(node => {
         const nodeRect = node.getBoundingClientRect();
         const nodeCenterX = nodeRect.left + nodeRect.width / 2;
@@ -333,46 +333,60 @@ document.addEventListener('mousemove', (e) => {
             Math.pow(e.clientY - nodeCenterY, 2)
         );
         
-        if (nodeDistance < 80) {
-            const intensity = (80 - nodeDistance) / 80;
-            node.style.transform = `scale(${1 + intensity * 0.3})`;
-            node.style.boxShadow = `0 0 ${20 + intensity * 20}px rgba(0, 191, 255, 1)`;
+        if (nodeDistance < 100) {
+            const intensity = (100 - nodeDistance) / 100;
+            node.style.transform = `scale(${1 + intensity * 0.4})`;
+            node.style.boxShadow = `0 0 ${30 + intensity * 30}px rgba(0, 191, 255, 1)`;
         } else {
             node.style.transform = 'scale(1)';
-            node.style.boxShadow = '0 0 15px rgba(0, 191, 255, 1)';
+            node.style.boxShadow = '0 0 20px rgba(0, 191, 255, 1)';
         }
     });
 });
 
-// Wireframe Click Effects
-document.querySelectorAll('.wireframe-line, .eye-line, .nose-line, .mouth-line, .jaw-line').forEach(line => {
+// Perfect Wireframe Click Effects
+document.querySelectorAll('.forehead-line, .eye-line, .nose-line, .mouth-line, .jaw-line, .chin-line').forEach(line => {
     line.addEventListener('click', () => {
         line.style.animation = 'none';
-        line.style.boxShadow = '0 0 25px rgba(0, 191, 255, 1)';
-        line.style.transform = 'scale(1.1)';
+        line.style.boxShadow = '0 0 30px rgba(0, 191, 255, 1)';
+        line.style.transform = 'scale(1.15)';
         
         setTimeout(() => {
-            line.style.animation = 'wireframeGlow 3s ease-in-out infinite';
+            line.style.animation = 'lineGlow 3s ease-in-out infinite';
             line.style.transform = 'scale(1)';
-            line.style.boxShadow = '0 0 10px rgba(0, 191, 255, 0.8)';
-        }, 300);
-    });
-});
-
-// Node Click Effects
-document.querySelectorAll('.eye-node, .nose-node, .mouth-node').forEach(node => {
-    node.addEventListener('click', () => {
-        node.style.animation = 'none';
-        node.style.transform = 'scale(1.5)';
-        node.style.boxShadow = '0 0 30px rgba(0, 191, 255, 1)';
-        
-        setTimeout(() => {
-            node.style.animation = 'nodePulse 1.5s ease-in-out infinite';
-            node.style.transform = 'scale(1)';
-            node.style.boxShadow = '0 0 15px rgba(0, 191, 255, 1)';
+            line.style.boxShadow = '0 0 12px rgba(0, 191, 255, 0.9)';
         }, 400);
     });
 });
 
+// Node Click Effects
+document.querySelectorAll('.eye-center, .nose-tip, .mouth-center').forEach(node => {
+    node.addEventListener('click', () => {
+        node.style.animation = 'none';
+        node.style.transform = 'scale(1.8)';
+        node.style.boxShadow = '0 0 40px rgba(0, 191, 255, 1)';
+        
+        setTimeout(() => {
+            node.style.animation = 'nodePulse 1.5s ease-in-out infinite';
+            node.style.transform = 'scale(1)';
+            node.style.boxShadow = '0 0 20px rgba(0, 191, 255, 1)';
+        }, 500);
+    });
+});
+
+// Philosophy Text Loop
+setInterval(() => {
+    const textLines = document.querySelectorAll('.text-line');
+    textLines.forEach((line, index) => {
+        setTimeout(() => {
+            line.style.animation = 'none';
+            setTimeout(() => {
+                line.style.animation = 'textAppear 0.5s ease-in-out forwards';
+            }, 50);
+        }, index * 100);
+    });
+}, 8000); // Restart every 8 seconds
+
 console.log('🚀 THE GLITCH - AI Trading Platform Loaded');
+
 
