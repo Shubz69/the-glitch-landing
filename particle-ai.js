@@ -102,13 +102,13 @@ class ParticleAIHead {
             positions[i3 + 1] = y;
             positions[i3 + 2] = z;
             
-            // Color gradient - white/cyan in center, purple at edges
+            // Clean blue gradient - bright cyan center, deeper blue edges
             const centerDistance = Math.sqrt(x*x + y*y + z*z);
-            const intensity = Math.max(0.4, 1.0 - centerDistance * 0.4) * (0.8 + Math.random() * 0.2);
+            const intensity = Math.max(0.5, 1.0 - centerDistance * 0.3) * (0.9 + Math.random() * 0.1);
             
-            // More white/cyan in center, purple at edges
-            colors[i3] = 0.3 + 0.4 * intensity; // More white/blue
-            colors[i3 + 1] = 0.7 + 0.3 * intensity; // Bright cyan/white
+            // Clean blue colors like reference image
+            colors[i3] = 0.1 + 0.3 * intensity; // Deep blue
+            colors[i3 + 1] = 0.6 + 0.4 * intensity; // Bright cyan
             colors[i3 + 2] = 0.9 + 0.1 * intensity; // Bright cyan
             
             sizes[i] = Math.random() * 0.06 + 0.03; // Smaller, more refined particles
@@ -149,9 +149,9 @@ class ParticleAIHead {
             leftEyePositions[i3 + 1] = 0.2 + Math.sin(angle) * radius * 0.3; // Flatter curve
             leftEyePositions[i3 + 2] = 0.92;
             
-            // Bright white/cyan for closed eyes
-            leftEyeColors[i3] = 0.4;
-            leftEyeColors[i3 + 1] = 0.9;
+            // Clean bright blue for closed eyes
+            leftEyeColors[i3] = 0.0;
+            leftEyeColors[i3 + 1] = 0.8;
             leftEyeColors[i3 + 2] = 1.0;
         }
         
@@ -183,9 +183,9 @@ class ParticleAIHead {
             rightEyePositions[i3 + 1] = 0.2 + Math.sin(angle) * radius * 0.3; // Flatter curve
             rightEyePositions[i3 + 2] = 0.92;
             
-            // Bright white/cyan for closed eyes
-            rightEyeColors[i3] = 0.4;
-            rightEyeColors[i3 + 1] = 0.9;
+            // Clean bright blue for closed eyes
+            rightEyeColors[i3] = 0.0;
+            rightEyeColors[i3 + 1] = 0.8;
             rightEyeColors[i3 + 2] = 1.0;
         }
         
@@ -216,8 +216,8 @@ class ParticleAIHead {
             nosePositions[i3 + 1] = 0.0 + Math.sin(angle) * radius;
             nosePositions[i3 + 2] = 0.95;
             
-            noseColors[i3] = 0.3;
-            noseColors[i3 + 1] = 0.8;
+            noseColors[i3] = 0.0;
+            noseColors[i3 + 1] = 0.7;
             noseColors[i3 + 2] = 1.0;
         }
         
@@ -248,8 +248,8 @@ class ParticleAIHead {
             mouthPositions[i3 + 1] = -0.25 + Math.sin(angle) * radius * 0.5;
             mouthPositions[i3 + 2] = 0.88;
             
-            mouthColors[i3] = 0.3;
-            mouthColors[i3 + 1] = 0.9;
+            mouthColors[i3] = 0.0;
+            mouthColors[i3 + 1] = 0.7;
             mouthColors[i3 + 2] = 1.0;
         }
         
@@ -267,33 +267,33 @@ class ParticleAIHead {
     }
 
     createFaceDetails() {
-        // Add flowing particle trails around the head
+        // Add flowing particle trails that fade naturally into background
         const trailGeometry = new THREE.BufferGeometry();
-        const trailPositions = new Float32Array(8000 * 3);
-        const trailColors = new Float32Array(8000 * 3);
+        const trailPositions = new Float32Array(12000 * 3);
+        const trailColors = new Float32Array(12000 * 3);
         
-        for (let i = 0; i < 8000; i++) {
+        for (let i = 0; i < 12000; i++) {
             const i3 = i * 3;
             
-            // Create flowing trails around the head
+            // Create flowing trails that extend much further out
             const theta = Math.random() * Math.PI;
             const phi = Math.random() * 2 * Math.PI;
-            const r = 1.2 + Math.random() * 0.8; // Further out from head
+            const r = 1.5 + Math.random() * 2.0; // Much further out for natural fade
             
             // Add wave motion to create flowing effect
-            const wave = Math.sin(phi * 3 + this.time) * 0.2;
-            const flow = Math.sin(theta * 2) * 0.3;
+            const wave = Math.sin(phi * 4 + this.time * 1.5) * 0.3;
+            const flow = Math.sin(theta * 3) * 0.4;
             
             trailPositions[i3] = r * Math.sin(theta) * Math.cos(phi) * 0.9 + wave;
-            trailPositions[i3 + 1] = r * Math.cos(theta) * 1.4 - 0.1 + flow;
-            trailPositions[i3 + 2] = r * Math.sin(theta) * Math.sin(phi) * 0.9 + wave * 0.5;
+            trailPositions[i3 + 1] = r * Math.cos(theta) * 1.6 - 0.2 + flow;
+            trailPositions[i3 + 2] = r * Math.sin(theta) * Math.sin(phi) * 0.9 + wave * 0.3;
             
-            // Fade out with distance - more white/cyan
+            // Natural fade to transparent - clean blue gradient
             const distance = Math.sqrt(trailPositions[i3]**2 + trailPositions[i3+1]**2 + trailPositions[i3+2]**2);
-            const fade = Math.max(0.3, 1.0 - (distance - 1.2) * 0.3);
+            const fade = Math.max(0.0, 1.0 - (distance - 1.5) * 0.4); // Fade to completely transparent
             
-            trailColors[i3] = 0.2 + 0.5 * fade; // More white/blue
-            trailColors[i3 + 1] = 0.6 + 0.4 * fade; // Bright cyan
+            trailColors[i3] = 0.0 + 0.2 * fade; // Clean blue
+            trailColors[i3 + 1] = 0.4 + 0.4 * fade; // Cyan
             trailColors[i3 + 2] = 0.8 + 0.2 * fade; // Bright cyan
         }
         
@@ -301,10 +301,10 @@ class ParticleAIHead {
         trailGeometry.setAttribute('color', new THREE.BufferAttribute(trailColors, 3));
         
         const trails = new THREE.Points(trailGeometry, new THREE.PointsMaterial({
-            size: 0.03,
+            size: 0.02,
             vertexColors: true,
             transparent: true,
-            opacity: 0.6,
+            opacity: 0.4,
             blending: THREE.AdditiveBlending
         }));
         this.scene.add(trails);
@@ -335,32 +335,7 @@ class ParticleAIHead {
             this.targetRotationX = (y - 0.5) * 0.3;
         }, { passive: true });
 
-        // Audio toggle
-        const toggleAudioBtn = document.getElementById('toggleAudio');
-        toggleAudioBtn.addEventListener('click', async () => {
-            if (!this.audioContext) {
-                try {
-                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    const source = this.audioContext.createMediaStreamSource(stream);
-                    this.analyser = this.audioContext.createAnalyser();
-                    this.analyser.fftSize = 512;
-                    source.connect(this.analyser);
-                    this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
-                    toggleAudioBtn.textContent = '🎤 Mic Enabled';
-                    toggleAudioBtn.style.background = 'rgba(0, 191, 255, 0.2)';
-                } catch (err) {
-                    toggleAudioBtn.textContent = '🎤 Mic Denied';
-                    console.warn('Microphone access denied:', err);
-                }
-            }
-        });
-
-        // Text input for pulse effect
-        const textInput = document.getElementById('textInput');
-        textInput.addEventListener('keydown', () => {
-            this.pulse = 1.0;
-        });
+        // Remove audio and text input controls - no longer needed
 
         // Window resize
         window.addEventListener('resize', () => {
@@ -382,22 +357,8 @@ class ParticleAIHead {
             this.headPoints.rotation.x += (this.targetRotationX - this.headPoints.rotation.x) * 0.06;
         }
 
-        // Audio reactive scaling
-        let audioLevel = 0.0;
-        if (this.analyser) {
-            this.analyser.getByteFrequencyData(this.dataArray);
-            let sum = 0;
-            for (let i = 10; i < 90; i++) {
-                sum += this.dataArray[i];
-            }
-            audioLevel = (sum / 80) / 255.0;
-        }
-
-        // Decay pulse
-        this.pulse *= 0.92;
-
-        // Apply audio and pulse effects to all head parts
-        const scale = 1.0 + audioLevel * 0.3 + this.pulse * 0.2;
+        // Gentle breathing animation only
+        const scale = 1.0;
         this.scene.children.forEach(child => {
             if (child instanceof THREE.Points) {
                 child.scale.setScalar(scale);
