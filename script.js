@@ -275,8 +275,8 @@ setInterval(() => {
     });
 }, 5000);
 
-// ========== VOXEL AI HEAD INTERACTIONS ==========
-// Voxel AI Head Eye Tracking
+// ========== WIREFRAME AI HEAD INTERACTIONS ==========
+// Wireframe AI Head Eye Tracking
 document.addEventListener('mousemove', (e) => {
     const aiHead = document.querySelector('.ai-head');
     if (!aiHead) return;
@@ -289,57 +289,88 @@ document.addEventListener('mousemove', (e) => {
     const deltaY = e.clientY - centerY;
 
     const angle = Math.atan2(deltaY, deltaX);
-    const distance = Math.min(Math.sqrt(deltaX * deltaX + deltaY * deltaY), 50); // Max eye movement
+    const distance = Math.min(Math.sqrt(deltaX * deltaX + deltaY * deltaY), 60); // Max eye movement
 
-    const eyeX = Math.cos(angle) * distance * 0.15; // Reduced movement for subtlety
-    const eyeY = Math.sin(angle) * distance * 0.15;
+    const eyeX = Math.cos(angle) * distance * 0.1; // Reduced movement for subtlety
+    const eyeY = Math.sin(angle) * distance * 0.1;
 
     // Track eyes
-    document.querySelectorAll('.eye-iris').forEach(iris => {
+    document.querySelectorAll('.eye-iris-glow').forEach(iris => {
         iris.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
     });
 
-    // Make voxels react to mouse proximity
-    const voxels = document.querySelectorAll('.voxel');
-    voxels.forEach(voxel => {
-        const voxelRect = voxel.getBoundingClientRect();
-        const voxelCenterX = voxelRect.left + voxelRect.width / 2;
-        const voxelCenterY = voxelRect.top + voxelRect.height / 2;
+    // Make wireframe lines react to mouse proximity
+    const wireframeLines = document.querySelectorAll('.wireframe-line, .eye-line, .nose-line, .mouth-line, .jaw-line');
+    wireframeLines.forEach(line => {
+        const lineRect = line.getBoundingClientRect();
+        const lineCenterX = lineRect.left + lineRect.width / 2;
+        const lineCenterY = lineRect.top + lineRect.height / 2;
         
-        const voxelDistance = Math.sqrt(
-            Math.pow(e.clientX - voxelCenterX, 2) + 
-            Math.pow(e.clientY - voxelCenterY, 2)
+        const lineDistance = Math.sqrt(
+            Math.pow(e.clientX - lineCenterX, 2) + 
+            Math.pow(e.clientY - lineCenterY, 2)
         );
         
-        if (voxelDistance < 100) {
-            const intensity = (100 - voxelDistance) / 100;
-            voxel.style.transform = `translateZ(${intensity * 15}px) scale(${1 + intensity * 0.2})`;
-            voxel.style.boxShadow = `
-                0 0 ${20 + intensity * 20}px rgba(99, 102, 241, ${0.8 + intensity * 0.2}),
-                inset 0 0 ${5 + intensity * 5}px rgba(255, 255, 255, ${0.3 + intensity * 0.2})
-            `;
+        if (lineDistance < 120) {
+            const intensity = (120 - lineDistance) / 120;
+            line.style.boxShadow = `0 0 ${15 + intensity * 15}px rgba(0, 191, 255, ${0.8 + intensity * 0.2})`;
+            line.style.opacity = 0.8 + intensity * 0.2;
         } else {
-            voxel.style.transform = 'translateZ(0px) scale(1)';
-            voxel.style.boxShadow = `
-                0 0 10px rgba(99, 102, 241, 0.8),
-                inset 0 0 5px rgba(255, 255, 255, 0.3)
-            `;
+            line.style.boxShadow = '0 0 10px rgba(0, 191, 255, 0.8)';
+            line.style.opacity = 0.8;
+        }
+    });
+
+    // Make nodes react to mouse proximity
+    const nodes = document.querySelectorAll('.eye-node, .nose-node, .mouth-node');
+    nodes.forEach(node => {
+        const nodeRect = node.getBoundingClientRect();
+        const nodeCenterX = nodeRect.left + nodeRect.width / 2;
+        const nodeCenterY = nodeRect.top + nodeRect.height / 2;
+        
+        const nodeDistance = Math.sqrt(
+            Math.pow(e.clientX - nodeCenterX, 2) + 
+            Math.pow(e.clientY - nodeCenterY, 2)
+        );
+        
+        if (nodeDistance < 80) {
+            const intensity = (80 - nodeDistance) / 80;
+            node.style.transform = `scale(${1 + intensity * 0.3})`;
+            node.style.boxShadow = `0 0 ${20 + intensity * 20}px rgba(0, 191, 255, 1)`;
+        } else {
+            node.style.transform = 'scale(1)';
+            node.style.boxShadow = '0 0 15px rgba(0, 191, 255, 1)';
         }
     });
 });
 
-// Voxel Click Effects
-document.querySelectorAll('.voxel').forEach(voxel => {
-    voxel.addEventListener('click', () => {
-        voxel.style.animation = 'none';
-        voxel.style.transform = 'translateZ(20px) scale(1.3)';
-        voxel.style.boxShadow = '0 0 30px rgba(99, 102, 241, 1), inset 0 0 15px rgba(255, 255, 255, 0.8)';
+// Wireframe Click Effects
+document.querySelectorAll('.wireframe-line, .eye-line, .nose-line, .mouth-line, .jaw-line').forEach(line => {
+    line.addEventListener('click', () => {
+        line.style.animation = 'none';
+        line.style.boxShadow = '0 0 25px rgba(0, 191, 255, 1)';
+        line.style.transform = 'scale(1.1)';
         
         setTimeout(() => {
-            voxel.style.animation = 'voxelGlow 3s ease-in-out infinite';
-            voxel.style.transform = 'translateZ(0px) scale(1)';
-            voxel.style.boxShadow = '0 0 10px rgba(99, 102, 241, 0.8), inset 0 0 5px rgba(255, 255, 255, 0.3)';
-        }, 500);
+            line.style.animation = 'wireframeGlow 3s ease-in-out infinite';
+            line.style.transform = 'scale(1)';
+            line.style.boxShadow = '0 0 10px rgba(0, 191, 255, 0.8)';
+        }, 300);
+    });
+});
+
+// Node Click Effects
+document.querySelectorAll('.eye-node, .nose-node, .mouth-node').forEach(node => {
+    node.addEventListener('click', () => {
+        node.style.animation = 'none';
+        node.style.transform = 'scale(1.5)';
+        node.style.boxShadow = '0 0 30px rgba(0, 191, 255, 1)';
+        
+        setTimeout(() => {
+            node.style.animation = 'nodePulse 1.5s ease-in-out infinite';
+            node.style.transform = 'scale(1)';
+            node.style.boxShadow = '0 0 15px rgba(0, 191, 255, 1)';
+        }, 400);
     });
 });
 

@@ -58,72 +58,127 @@
                         <!-- Neural Background -->
                         <canvas id="neuralCanvas" class="neural-canvas"></canvas>
                         
-                        <!-- Voxel AI Head Structure -->
+                        <!-- Wireframe AI Head Structure -->
                         <div class="ai-head">
-                            <!-- Main Voxel Head -->
-                            <div class="voxel-head">
-                                <!-- Face Voxels -->
-                                <div class="face-voxels">
-                                    <!-- Forehead Voxels -->
-                                    <div class="voxel-row row-1">
-                                        <div class="voxel"></div><div class="voxel"></div><div class="voxel"></div><div class="voxel"></div><div class="voxel"></div>
-                                    </div>
-                                    <div class="voxel-row row-2">
-                                        <div class="voxel"></div><div class="voxel"></div><div class="voxel"></div><div class="voxel"></div><div class="voxel"></div>
+                            <!-- Main Wireframe Head -->
+                            <div class="wireframe-head">
+                                <!-- Face Wireframe -->
+                                <div class="face-wireframe">
+                                    <!-- Forehead Lines -->
+                                    <div class="wireframe-line line-1"></div>
+                                    <div class="wireframe-line line-2"></div>
+                                    <div class="wireframe-line line-3"></div>
+                                    
+                                    <!-- Eye Area -->
+                                    <div class="eye-area left-eye-area">
+                                        <div class="eye-wireframe">
+                                            <div class="eye-line eye-line-1"></div>
+                                            <div class="eye-line eye-line-2"></div>
+                                            <div class="eye-line eye-line-3"></div>
+                                            <div class="eye-node eye-node-1"></div>
+                                            <div class="eye-node eye-node-2"></div>
+                                            <div class="eye-node eye-node-3"></div>
+                                        </div>
                                     </div>
                                     
-                                    <!-- Eye Area Voxels -->
-                                    <div class="voxel-row row-3">
-                                        <div class="voxel eye-voxel left-eye-area"></div><div class="voxel"></div><div class="voxel nose-voxel"></div><div class="voxel"></div><div class="voxel eye-voxel right-eye-area"></div>
-                                    </div>
-                                    <div class="voxel-row row-4">
-                                        <div class="voxel eye-voxel left-eye-area"></div><div class="voxel"></div><div class="voxel nose-voxel"></div><div class="voxel"></div><div class="voxel eye-voxel right-eye-area"></div>
-                                    </div>
-                                    
-                                    <!-- Mouth Area Voxels -->
-                                    <div class="voxel-row row-5">
-                                        <div class="voxel"></div><div class="voxel mouth-voxel"></div><div class="voxel mouth-voxel"></div><div class="voxel mouth-voxel"></div><div class="voxel"></div>
-                                    </div>
-                                    <div class="voxel-row row-6">
-                                        <div class="voxel"></div><div class="voxel mouth-voxel"></div><div class="voxel mouth-voxel"></div><div class="voxel mouth-voxel"></div><div class="voxel"></div>
+                                    <div class="eye-area right-eye-area">
+                                        <div class="eye-wireframe">
+                                            <div class="eye-line eye-line-1"></div>
+                                            <div class="eye-line eye-line-2"></div>
+                                            <div class="eye-line eye-line-3"></div>
+                                            <div class="eye-node eye-node-1"></div>
+                                            <div class="eye-node eye-node-2"></div>
+                                            <div class="eye-node eye-node-3"></div>
+                                        </div>
                                     </div>
                                     
-                                    <!-- Chin Voxels -->
-                                    <div class="voxel-row row-7">
-                                        <div class="voxel"></div><div class="voxel"></div><div class="voxel"></div><div class="voxel"></div><div class="voxel"></div>
+                                    <!-- Nose Area -->
+                                    <div class="nose-area">
+                                        <div class="nose-line nose-line-1"></div>
+                                        <div class="nose-line nose-line-2"></div>
+                                        <div class="nose-node nose-node-1"></div>
+                                        <div class="nose-node nose-node-2"></div>
+                                    </div>
+                                    
+                                    <!-- Mouth Area -->
+                                    <div class="mouth-area">
+                                        <div class="mouth-line mouth-line-1"></div>
+                                        <div class="mouth-line mouth-line-2"></div>
+                                        <div class="mouth-line mouth-line-3"></div>
+                                        <div class="mouth-node mouth-node-1"></div>
+                                        <div class="mouth-node mouth-node-2"></div>
+                                        <div class="mouth-node mouth-node-3"></div>
+                                        <div class="mouth-node mouth-node-4"></div>
+                                    </div>
+                                    
+                                    <!-- Chin Lines -->
+                                    <div class="wireframe-line chin-line-1"></div>
+                                    <div class="wireframe-line chin-line-2"></div>
+                                    
+                                    <!-- Jaw Lines -->
+                                    <div class="jaw-line left-jaw"></div>
+                                    <div class="jaw-line right-jaw"></div>
+                                </div>
+                                
+                                <!-- Eyes Glow -->
+                                <div class="eyes-glow">
+                                    <div class="eye-glow left-eye-glow">
+                                        <div class="eye-iris-glow"></div>
+                                        <div class="eye-pupil-glow"></div>
+                                    </div>
+                                    <div class="eye-glow right-eye-glow">
+                                        <div class="eye-iris-glow"></div>
+                                        <div class="eye-pupil-glow"></div>
                                     </div>
                                 </div>
                                 
-                                <!-- Eyes -->
-                                <div class="eyes-container">
-                                    <div class="eye left-eye">
-                                        <div class="eye-iris"></div>
-                                        <div class="eye-pupil"></div>
-                                        <div class="eye-glow"></div>
+                                <!-- Speaking Data Streams -->
+                                <div class="speaking-data-streams">
+                                    <div class="data-stream stream-1">
+                                        <div class="data-bit">1</div>
+                                        <div class="data-bit">0</div>
+                                        <div class="data-bit">1</div>
+                                        <div class="data-bit">1</div>
+                                        <div class="data-bit">0</div>
                                     </div>
-                                    <div class="eye right-eye">
-                                        <div class="eye-iris"></div>
-                                        <div class="eye-pupil"></div>
-                                        <div class="eye-glow"></div>
+                                    <div class="data-stream stream-2">
+                                        <div class="data-bit">0</div>
+                                        <div class="data-bit">1</div>
+                                        <div class="data-bit">1</div>
+                                        <div class="data-bit">0</div>
+                                        <div class="data-bit">1</div>
+                                    </div>
+                                    <div class="data-stream stream-3">
+                                        <div class="data-bit">1</div>
+                                        <div class="data-bit">1</div>
+                                        <div class="data-bit">0</div>
+                                        <div class="data-bit">1</div>
+                                        <div class="data-bit">0</div>
+                                    </div>
+                                    <div class="data-stream stream-4">
+                                        <div class="data-bit">0</div>
+                                        <div class="data-bit">0</div>
+                                        <div class="data-bit">1</div>
+                                        <div class="data-bit">1</div>
+                                        <div class="data-bit">1</div>
                                     </div>
                                 </div>
                                 
-                                <!-- Speaking Particles -->
-                                <div class="speaking-particles">
-                                    <div class="particle particle-1"></div>
-                                    <div class="particle particle-2"></div>
-                                    <div class="particle particle-3"></div>
-                                    <div class="particle particle-4"></div>
-                                    <div class="particle particle-5"></div>
-                                    <div class="particle particle-6"></div>
-                                    <div class="particle particle-7"></div>
-                                    <div class="particle particle-8"></div>
-                                    <div class="particle particle-9"></div>
-                                    <div class="particle particle-10"></div>
+                                <!-- Binary Code Background -->
+                                <div class="binary-background">
+                                    <div class="binary-line line-1">0101101011010110</div>
+                                    <div class="binary-line line-2">1010010110100101</div>
+                                    <div class="binary-line line-3">1101011010110101</div>
+                                    <div class="binary-line line-4">0101011010110101</div>
+                                    <div class="binary-line line-5">1011010101101011</div>
                                 </div>
                                 
-                                <!-- Distortion Effect -->
-                                <div class="distortion-overlay"></div>
+                                <!-- Mouth Movement for Speaking -->
+                                <div class="mouth-movement">
+                                    <div class="mouth-wave wave-1"></div>
+                                    <div class="mouth-wave wave-2"></div>
+                                    <div class="mouth-wave wave-3"></div>
+                                </div>
                             </div>
                             
                             <!-- Data Streams -->
