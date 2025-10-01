@@ -56,8 +56,8 @@ class ParticleAIHead {
     }
 
     createFreeFlowingParticles() {
-        // Create free-flowing particles that move around the entire viewport
-        for (let i = 0; i < 300; i++) {
+        // Create evenly distributed particles across entire viewport
+        for (let i = 0; i < 500; i++) {
             this.createFloatingParticle();
         }
     }
@@ -66,27 +66,27 @@ class ParticleAIHead {
         const particle = document.createElement('div');
         particle.className = 'floating-particle';
         
-        // Random position across entire viewport
+        // Even distribution across entire viewport
         particle.style.left = Math.random() * 100 + '%';
         particle.style.top = Math.random() * 100 + '%';
         
-        // Random size and opacity
-        const size = Math.random() * 6 + 1;
+        // Uniform size and opacity
+        const size = 3; // All particles same size
         particle.style.width = size + 'px';
         particle.style.height = size + 'px';
-        particle.style.opacity = Math.random() * 0.8 + 0.1;
+        particle.style.opacity = 0.6; // Same opacity
         
         // Random animation duration and delay
-        const duration = Math.random() * 25 + 15;
-        const delay = Math.random() * 5;
+        const duration = Math.random() * 20 + 15;
+        const delay = Math.random() * 3;
         particle.style.animationDuration = duration + 's';
         particle.style.animationDelay = delay + 's';
         
         // Random movement pattern
         const pattern = Math.random();
-        if (pattern < 0.3) {
+        if (pattern < 0.33) {
             particle.classList.add('float-horizontal');
-        } else if (pattern < 0.6) {
+        } else if (pattern < 0.66) {
             particle.classList.add('float-vertical');
         } else {
             particle.classList.add('float-circular');
@@ -150,8 +150,8 @@ class ParticleAIHead {
     }
 
     createHeadOutline() {
-        // Main head shape - more refined and human-like
-        const POINT_COUNT = 40000;
+        // Create a proper humanoid head shape
+        const POINT_COUNT = 50000;
         const positions = new Float32Array(POINT_COUNT * 3);
         const colors = new Float32Array(POINT_COUNT * 3);
         const sizes = new Float32Array(POINT_COUNT);
@@ -159,47 +159,50 @@ class ParticleAIHead {
         for (let i = 0; i < POINT_COUNT; i++) {
             const i3 = i * 3;
             
-            // Create more refined head shape
+            // Create proper humanoid head shape
             const theta = Math.random() * Math.PI;
             const phi = Math.random() * 2 * Math.PI;
             
-            // More realistic head proportions
+            // Humanoid head proportions
             let r = 1.0;
-            if (theta < Math.PI * 0.25) {
-                // Forehead - flatter, more refined
-                r = 0.85 + 0.15 * Math.cos(theta * 4);
-            } else if (theta > Math.PI * 0.75) {
-                // Chin area - more defined
-                r = 0.9 + 0.1 * Math.sin((theta - Math.PI * 0.75) * 3);
-            } else {
-                // Cheek area - fuller
-                r = 1.0 + 0.15 * Math.cos(theta * 1.5);
+            
+            // Forehead area (top)
+            if (theta < Math.PI * 0.2) {
+                r = 0.8 + 0.2 * Math.cos(theta * 5);
+            }
+            // Eye/cheek area (middle)
+            else if (theta < Math.PI * 0.6) {
+                r = 1.0 + 0.2 * Math.cos(theta * 2);
+            }
+            // Chin area (bottom)
+            else {
+                r = 0.9 + 0.1 * Math.sin((theta - Math.PI * 0.6) * 2);
             }
             
-            // Flatten the back more
-            if (phi > Math.PI * 0.4 && phi < Math.PI * 1.6) {
-                r *= 0.5;
+            // Flatten the back to make it more human-like
+            if (phi > Math.PI * 0.3 && phi < Math.PI * 1.7) {
+                r *= 0.4;
             }
             
-            // Position with better proportions
-            const x = r * Math.sin(theta) * Math.cos(phi) * 0.9;
-            const y = r * Math.cos(theta) * 1.3 - 0.05;
-            const z = r * Math.sin(theta) * Math.sin(phi) * 0.95;
+            // Position for humanoid shape
+            const x = r * Math.sin(theta) * Math.cos(phi) * 0.8;
+            const y = r * Math.cos(theta) * 1.2 - 0.1;
+            const z = r * Math.sin(theta) * Math.sin(phi) * 0.9;
             
             positions[i3] = x;
             positions[i3 + 1] = y;
             positions[i3 + 2] = z;
             
-            // Clean blue gradient - bright cyan center, deeper blue edges
+            // Blue-purple gradient
             const centerDistance = Math.sqrt(x*x + y*y + z*z);
-            const intensity = Math.max(0.5, 1.0 - centerDistance * 0.3) * (0.9 + Math.random() * 0.1);
+            const intensity = Math.max(0.6, 1.0 - centerDistance * 0.2) * (0.8 + Math.random() * 0.2);
             
-            // Clean blue colors like reference image
-            colors[i3] = 0.1 + 0.3 * intensity; // Deep blue
-            colors[i3 + 1] = 0.6 + 0.4 * intensity; // Bright cyan
-            colors[i3 + 2] = 0.9 + 0.1 * intensity; // Bright cyan
+            // Blue-purple colors
+            colors[i3] = 0.3 + 0.4 * intensity; // Purple-blue
+            colors[i3 + 1] = 0.2 + 0.3 * intensity; // Blue
+            colors[i3 + 2] = 0.8 + 0.2 * intensity; // Bright blue
             
-            sizes[i] = Math.random() * 0.06 + 0.03; // Smaller, more refined particles
+            sizes[i] = Math.random() * 0.04 + 0.02; // Smaller, more uniform particles
         }
 
         const geometry = new THREE.BufferGeometry();
@@ -208,10 +211,10 @@ class ParticleAIHead {
         geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
         const material = new THREE.PointsMaterial({
-            size: 0.08,
+            size: 0.06,
             vertexColors: true,
             transparent: true,
-            opacity: 0.8,
+            opacity: 0.9,
             blending: THREE.AdditiveBlending,
             sizeAttenuation: true
         });
@@ -221,70 +224,70 @@ class ParticleAIHead {
     }
 
     createEyes() {
-        // Left eye - closed eyelid
+        // Left eye - more humanoid shape
         const leftEyeGeometry = new THREE.BufferGeometry();
-        const leftEyePositions = new Float32Array(3000 * 3);
-        const leftEyeColors = new Float32Array(3000 * 3);
+        const leftEyePositions = new Float32Array(4000 * 3);
+        const leftEyeColors = new Float32Array(4000 * 3);
         
-        for (let i = 0; i < 3000; i++) {
+        for (let i = 0; i < 4000; i++) {
             const i3 = i * 3;
-            // Create closed eyelid shape - curved line
+            // Create more humanoid eye shape
             const t = Math.random();
-            const angle = Math.PI * 0.3 + Math.PI * 0.4 * t; // Curved eyelid
-            const radius = 0.12 + Math.random() * 0.08;
+            const angle = Math.PI * 0.2 + Math.PI * 0.6 * t; // Wider eye
+            const radius = 0.15 + Math.random() * 0.1;
             
-            leftEyePositions[i3] = -0.3 + Math.cos(angle) * radius;
-            leftEyePositions[i3 + 1] = 0.2 + Math.sin(angle) * radius * 0.3; // Flatter curve
-            leftEyePositions[i3 + 2] = 0.92;
+            leftEyePositions[i3] = -0.25 + Math.cos(angle) * radius;
+            leftEyePositions[i3 + 1] = 0.15 + Math.sin(angle) * radius * 0.4; // More oval
+            leftEyePositions[i3 + 2] = 0.95;
             
-            // Clean bright blue for closed eyes
-            leftEyeColors[i3] = 0.0;
-            leftEyeColors[i3 + 1] = 0.8;
-            leftEyeColors[i3 + 2] = 1.0;
+            // Blue-purple colors
+            leftEyeColors[i3] = 0.4;
+            leftEyeColors[i3 + 1] = 0.3;
+            leftEyeColors[i3 + 2] = 0.9;
         }
         
         leftEyeGeometry.setAttribute('position', new THREE.BufferAttribute(leftEyePositions, 3));
         leftEyeGeometry.setAttribute('color', new THREE.BufferAttribute(leftEyeColors, 3));
         
         const leftEye = new THREE.Points(leftEyeGeometry, new THREE.PointsMaterial({
-            size: 0.04,
+            size: 0.05,
             vertexColors: true,
             transparent: true,
-            opacity: 0.95,
+            opacity: 0.9,
             blending: THREE.AdditiveBlending
         }));
         this.scene.add(leftEye);
 
-        // Right eye - closed eyelid
+        // Right eye - more humanoid shape
         const rightEyeGeometry = new THREE.BufferGeometry();
-        const rightEyePositions = new Float32Array(3000 * 3);
-        const rightEyeColors = new Float32Array(3000 * 3);
+        const rightEyePositions = new Float32Array(4000 * 3);
+        const rightEyeColors = new Float32Array(4000 * 3);
         
-        for (let i = 0; i < 3000; i++) {
+        for (let i = 0; i < 4000; i++) {
             const i3 = i * 3;
-            // Create closed eyelid shape - curved line
+            // Create more humanoid eye shape
             const t = Math.random();
-            const angle = Math.PI * 0.3 + Math.PI * 0.4 * t; // Curved eyelid
-            const radius = 0.12 + Math.random() * 0.08;
+            const angle = Math.PI * 0.2 + Math.PI * 0.6 * t; // Wider eye
+            const radius = 0.15 + Math.random() * 0.1;
             
-            rightEyePositions[i3] = 0.3 + Math.cos(angle) * radius;
-            rightEyePositions[i3 + 1] = 0.2 + Math.sin(angle) * radius * 0.3; // Flatter curve
-            rightEyePositions[i3 + 2] = 0.92;
+            rightEyePositions[i3] = 0.25 + Math.cos(angle) * radius;
+            rightEyePositions[i3 + 1] = 0.15 + Math.sin(angle) * radius * 0.4; // More oval
+            rightEyePositions[i3 + 2] = 0.95;
             
-            // Clean bright blue for closed eyes
-            rightEyeColors[i3] = 0.0;
-            rightEyeColors[i3 + 1] = 0.8;
-            rightEyeColors[i3 + 2] = 1.0;
+            // Blue-purple colors
+            rightEyeColors[i3] = 0.4;
+            rightEyeColors[i3 + 1] = 0.3;
+            rightEyeColors[i3 + 2] = 0.9;
         }
         
         rightEyeGeometry.setAttribute('position', new THREE.BufferAttribute(rightEyePositions, 3));
         rightEyeGeometry.setAttribute('color', new THREE.BufferAttribute(rightEyeColors, 3));
         
         const rightEye = new THREE.Points(rightEyeGeometry, new THREE.PointsMaterial({
-            size: 0.04,
+            size: 0.05,
             vertexColors: true,
             transparent: true,
-            opacity: 0.95,
+            opacity: 0.9,
             blending: THREE.AdditiveBlending
         }));
         this.scene.add(rightEye);
@@ -304,9 +307,9 @@ class ParticleAIHead {
             nosePositions[i3 + 1] = 0.0 + Math.sin(angle) * radius;
             nosePositions[i3 + 2] = 0.95;
             
-            noseColors[i3] = 0.0;
-            noseColors[i3 + 1] = 0.7;
-            noseColors[i3 + 2] = 1.0;
+            noseColors[i3] = 0.3;
+            noseColors[i3 + 1] = 0.2;
+            noseColors[i3 + 2] = 0.8;
         }
         
         noseGeometry.setAttribute('position', new THREE.BufferAttribute(nosePositions, 3));
@@ -336,9 +339,9 @@ class ParticleAIHead {
             mouthPositions[i3 + 1] = -0.25 + Math.sin(angle) * radius * 0.5;
             mouthPositions[i3 + 2] = 0.88;
             
-            mouthColors[i3] = 0.0;
-            mouthColors[i3 + 1] = 0.7;
-            mouthColors[i3 + 2] = 1.0;
+            mouthColors[i3] = 0.3;
+            mouthColors[i3 + 1] = 0.2;
+            mouthColors[i3 + 2] = 0.8;
         }
         
         mouthGeometry.setAttribute('position', new THREE.BufferAttribute(mouthPositions, 3));
