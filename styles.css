@@ -1463,6 +1463,50 @@ body {
     overflow: hidden;
 }
 
+/* Free-flowing particles background */
+.particles-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.floating-particle {
+    position: absolute;
+    background: radial-gradient(circle, rgba(0, 191, 255, 0.8), rgba(0, 191, 255, 0.2));
+    border-radius: 50%;
+    animation: floatAround 20s linear infinite;
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+}
+
+@keyframes floatAround {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.2;
+    }
+    25% {
+        transform: translate(100px, -50px) scale(1.2);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translate(-50px, -100px) scale(0.8);
+        opacity: 0.4;
+    }
+    75% {
+        transform: translate(-100px, 50px) scale(1.1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.2;
+    }
+}
+
 #particleCanvas {
     width: 100%;
     height: 100%;

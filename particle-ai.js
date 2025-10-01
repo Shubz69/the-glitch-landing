@@ -4,19 +4,20 @@ import * as THREE from 'three';
 class ParticleAIHead {
     constructor() {
         this.container = document.getElementById('particleCanvas');
+        this.particlesBackground = document.getElementById('particlesBackground');
         this.scene = null;
         this.camera = null;
         this.renderer = null;
         this.points = null;
-        this.audioContext = null;
-        this.analyser = null;
-        this.dataArray = null;
         this.pulse = 0;
         this.targetRotationX = 0;
         this.targetRotationY = 0;
         this.time = 0;
+        this.isVisible = false;
+        this.scrollProgress = 0;
         
         this.init();
+        this.initScrollEffects();
     }
 
     init() {
@@ -25,8 +26,83 @@ class ParticleAIHead {
         this.createRenderer();
         this.createParticleHead();
         this.createLights();
+        this.createFreeFlowingParticles();
         this.addEventListeners();
         this.animate();
+    }
+
+    initScrollEffects() {
+        // Create intersection observer for scroll-based appearance
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.isVisible = true;
+                    this.fadeInParticles();
+                } else {
+                    this.isVisible = false;
+                    this.fadeOutParticles();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observer.observe(this.container);
+
+        // Track scroll progress
+        window.addEventListener('scroll', () => {
+            const rect = this.container.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            this.scrollProgress = Math.max(0, Math.min(1, (windowHeight - rect.top) / windowHeight));
+        });
+    }
+
+    createFreeFlowingParticles() {
+        // Create free-flowing particles that move around the entire viewport
+        for (let i = 0; i < 200; i++) {
+            this.createFloatingParticle();
+        }
+    }
+
+    createFloatingParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'floating-particle';
+        
+        // Random position
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        
+        // Random size and opacity
+        const size = Math.random() * 4 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.opacity = Math.random() * 0.6 + 0.2;
+        
+        // Random animation duration
+        const duration = Math.random() * 20 + 10;
+        particle.style.animationDuration = duration + 's';
+        
+        this.particlesBackground.appendChild(particle);
+        
+        // Remove and recreate particle after animation
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+                this.createFloatingParticle();
+            }
+        }, duration * 1000);
+    }
+
+    fadeInParticles() {
+        if (this.points) {
+            this.points.material.opacity = 0.8;
+        }
+        this.particlesBackground.style.opacity = '1';
+    }
+
+    fadeOutParticles() {
+        if (this.points) {
+            this.points.material.opacity = 0.2;
+        }
+        this.particlesBackground.style.opacity = '0.3';
     }
 
     createScene() {
@@ -351,14 +427,20 @@ class ParticleAIHead {
         
         this.time += 0.01;
 
+        // Only animate when visible
+        if (!this.isVisible) {
+            this.renderer.render(this.scene, this.camera);
+            return;
+        }
+
         // Smooth rotation for the main head
         if (this.headPoints) {
             this.headPoints.rotation.y += (this.targetRotationY - this.headPoints.rotation.y) * 0.08;
             this.headPoints.rotation.x += (this.targetRotationX - this.headPoints.rotation.x) * 0.06;
         }
 
-        // Gentle breathing animation only
-        const scale = 1.0;
+        // Scale based on scroll progress
+        const scale = 0.5 + this.scrollProgress * 0.5;
         this.scene.children.forEach(child => {
             if (child instanceof THREE.Points) {
                 child.scale.setScalar(scale);
@@ -385,8 +467,8 @@ class ParticleAIHead {
             this.trailPoints.geometry.attributes.position.needsUpdate = true;
         }
 
-        // Small camera movement
-        this.camera.position.z = 4.5 + Math.sin(this.time * 0.4) * 0.1;
+        // Camera movement based on scroll
+        this.camera.position.z = 4.5 + Math.sin(this.time * 0.4) * 0.1 + this.scrollProgress * 0.5;
         this.camera.lookAt(0, 0, 0);
 
         this.renderer.render(this.scene, this.camera);
