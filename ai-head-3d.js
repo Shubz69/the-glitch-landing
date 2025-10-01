@@ -31,7 +31,7 @@ class AIHead3D {
 
     createScene() {
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0x0a0a0a);
+        this.scene.background = null; // Transparent background
     }
 
     createCamera() {
@@ -73,7 +73,7 @@ class AIHead3D {
         this.head = new THREE.Group();
 
         // Create head geometry (sphere with modifications)
-        const headGeometry = new THREE.SphereGeometry(1, 32, 32);
+        const headGeometry = new THREE.SphereGeometry(1, 24, 24);
         
         // Modify geometry to make it more head-like
         const positions = headGeometry.attributes.position;
@@ -84,60 +84,35 @@ class AIHead3D {
             
             // Flatten the back and elongate the front
             if (z < 0) {
-                positions.setZ(i, z * 0.7);
+                positions.setZ(i, z * 0.6);
             } else {
-                positions.setZ(i, z * 1.2);
+                positions.setZ(i, z * 1.3);
             }
             
             // Make it more oval-shaped
             if (Math.abs(y) > 0.5) {
-                positions.setY(i, y * 1.1);
+                positions.setY(i, y * 1.2);
             }
         }
         positions.needsUpdate = true;
 
-        // Create wireframe material
-        const wireframeMaterial = new THREE.ShaderMaterial({
-            vertexShader: `
-                varying vec3 vNormal;
-                varying vec3 vPosition;
-                varying float vDistance;
-                
-                void main() {
-                    vNormal = normalize(normalMatrix * normal);
-                    vPosition = position;
-                    vDistance = distance(position, vec3(0.0));
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                }
-            `,
-            fragmentShader: `
-                varying vec3 vNormal;
-                varying vec3 vPosition;
-                varying float vDistance;
-                
-                void main() {
-                    vec3 color1 = vec3(0.0, 0.75, 1.0); // Bright blue
-                    vec3 color2 = vec3(0.5, 0.0, 1.0);  // Purple
-                    
-                    float intensity = 1.0 - vDistance * 0.3;
-                    intensity = pow(intensity, 2.0);
-                    
-                    vec3 finalColor = mix(color2, color1, intensity);
-                    float alpha = 0.8 + intensity * 0.2;
-                    
-                    gl_FragColor = vec4(finalColor, alpha);
-                }
-            `,
+        // Create wireframe material with glowing lines
+        const wireframeMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00BFFF,
+            wireframe: true,
             transparent: true,
-            side: THREE.DoubleSide
+            opacity: 0.8
         });
 
         // Create wireframe head
         const headWireframe = new THREE.Mesh(headGeometry, wireframeMaterial);
-        headWireframe.scale.set(1.2, 1.2, 1.2);
+        headWireframe.scale.set(1.3, 1.3, 1.3);
         this.head.add(headWireframe);
 
-        // Create eyes
+        // Create additional wireframe layers for depth
+        this.createWireframeLayers();
+        
+        // Create glowing eyes
         this.createEyes();
         
         // Create facial features
@@ -149,132 +124,142 @@ class AIHead3D {
         this.scene.add(this.head);
     }
 
+    createWireframeLayers() {
+        // Create multiple wireframe layers for depth effect
+        const headGeometry = new THREE.SphereGeometry(1, 16, 16);
+        
+        // Outer layer
+        const outerWireframe = new THREE.Mesh(headGeometry, new THREE.MeshBasicMaterial({
+            color: 0x0080FF,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.3
+        }));
+        outerWireframe.scale.set(1.4, 1.4, 1.4);
+        this.head.add(outerWireframe);
+
+        // Inner layer
+        const innerWireframe = new THREE.Mesh(headGeometry, new THREE.MeshBasicMaterial({
+            color: 0x00BFFF,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.6
+        }));
+        innerWireframe.scale.set(1.1, 1.1, 1.1);
+        this.head.add(innerWireframe);
+    }
+
     createEyes() {
-        // Left eye
-        const leftEyeGeometry = new THREE.SphereGeometry(0.15, 16, 16);
-        const eyeMaterial = new THREE.ShaderMaterial({
-            vertexShader: `
-                varying vec3 vNormal;
-                void main() {
-                    vNormal = normalize(normalMatrix * normal);
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                }
-            `,
-            fragmentShader: `
-                varying vec3 vNormal;
-                void main() {
-                    vec3 color = vec3(0.0, 1.0, 1.0); // Cyan
-                    float intensity = 1.0 + dot(vNormal, vec3(0.0, 0.0, 1.0)) * 0.5;
-                    gl_FragColor = vec4(color * intensity, 1.0);
-                }
-            `,
-            transparent: true
+        // Left eye - bright glowing sphere
+        const leftEyeGeometry = new THREE.SphereGeometry(0.2, 16, 16);
+        const eyeMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00FFFF,
+            transparent: true,
+            opacity: 0.9
         });
 
         const leftEye = new THREE.Mesh(leftEyeGeometry, eyeMaterial);
-        leftEye.position.set(-0.3, 0.2, 0.8);
+        leftEye.position.set(-0.35, 0.25, 0.9);
         this.head.add(leftEye);
 
         // Right eye
         const rightEye = new THREE.Mesh(leftEyeGeometry, eyeMaterial);
-        rightEye.position.set(0.3, 0.2, 0.8);
+        rightEye.position.set(0.35, 0.25, 0.9);
         this.head.add(rightEye);
 
-        // Eye rings
+        // Eye rings - glowing wireframe circles
         this.createEyeRings();
     }
 
     createEyeRings() {
-        const ringGeometry = new THREE.RingGeometry(0.2, 0.25, 16);
-        const ringMaterial = new THREE.ShaderMaterial({
-            vertexShader: `
-                void main() {
-                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                }
-            `,
-            fragmentShader: `
-                void main() {
-                    vec3 color = vec3(0.0, 0.5, 1.0);
-                    gl_FragColor = vec4(color, 0.6);
-                }
-            `,
+        const ringGeometry = new THREE.RingGeometry(0.25, 0.3, 16);
+        const ringMaterial = new THREE.MeshBasicMaterial({
+            color: 0x00BFFF,
+            wireframe: true,
             transparent: true,
-            side: THREE.DoubleSide
+            opacity: 0.8
         });
 
         // Left eye ring
         const leftRing = new THREE.Mesh(ringGeometry, ringMaterial);
-        leftRing.position.set(-0.3, 0.2, 0.85);
+        leftRing.position.set(-0.35, 0.25, 0.88);
         leftRing.rotation.x = Math.PI / 2;
         this.head.add(leftRing);
 
         // Right eye ring
         const rightRing = new THREE.Mesh(ringGeometry, ringMaterial);
-        rightRing.position.set(0.3, 0.2, 0.85);
+        rightRing.position.set(0.35, 0.25, 0.88);
         rightRing.rotation.x = Math.PI / 2;
         this.head.add(rightRing);
     }
 
     createFacialFeatures() {
-        // Nose
-        const noseGeometry = new THREE.ConeGeometry(0.08, 0.3, 8);
+        // Nose - wireframe cone
+        const noseGeometry = new THREE.ConeGeometry(0.1, 0.3, 8);
         const noseMaterial = new THREE.MeshBasicMaterial({ 
             color: 0x00BFFF, 
+            wireframe: true,
             transparent: true, 
-            opacity: 0.7 
+            opacity: 0.8 
         });
         const nose = new THREE.Mesh(noseGeometry, noseMaterial);
-        nose.position.set(0, 0, 0.9);
+        nose.position.set(0, 0, 0.95);
         nose.rotation.x = Math.PI;
         this.head.add(nose);
 
-        // Mouth
-        const mouthGeometry = new THREE.TorusGeometry(0.2, 0.05, 8, 16, Math.PI);
+        // Mouth - wireframe torus
+        const mouthGeometry = new THREE.TorusGeometry(0.25, 0.05, 8, 16, Math.PI);
         const mouthMaterial = new THREE.MeshBasicMaterial({ 
             color: 0x00BFFF, 
+            wireframe: true,
             transparent: true, 
             opacity: 0.8 
         });
         const mouth = new THREE.Mesh(mouthGeometry, mouthMaterial);
-        mouth.position.set(0, -0.3, 0.8);
+        mouth.position.set(0, -0.35, 0.85);
         mouth.rotation.x = Math.PI;
         this.head.add(mouth);
     }
 
     createShoulders() {
-        const shoulderGeometry = new THREE.SphereGeometry(0.4, 16, 16);
+        const shoulderGeometry = new THREE.SphereGeometry(0.4, 12, 12);
         const shoulderMaterial = new THREE.MeshBasicMaterial({ 
             color: 0x0080FF, 
+            wireframe: true,
             transparent: true, 
-            opacity: 0.3,
-            wireframe: true 
+            opacity: 0.6
         });
 
         // Left shoulder
         const leftShoulder = new THREE.Mesh(shoulderGeometry, shoulderMaterial);
-        leftShoulder.position.set(-0.8, -0.8, 0);
-        leftShoulder.scale.set(1, 0.6, 0.8);
+        leftShoulder.position.set(-0.9, -0.9, 0);
+        leftShoulder.scale.set(1.2, 0.7, 0.9);
         this.head.add(leftShoulder);
 
         // Right shoulder
         const rightShoulder = new THREE.Mesh(shoulderGeometry, shoulderMaterial);
-        rightShoulder.position.set(0.8, -0.8, 0);
-        rightShoulder.scale.set(1, 0.6, 0.8);
+        rightShoulder.position.set(0.9, -0.9, 0);
+        rightShoulder.scale.set(1.2, 0.7, 0.9);
         this.head.add(rightShoulder);
     }
 
     createLights() {
-        // Ambient light
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.3);
+        // Ambient light for overall illumination
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
         this.scene.add(ambientLight);
 
         // Point light for glow effect
-        const pointLight = new THREE.PointLight(0x00BFFF, 1, 10);
-        pointLight.position.set(0, 0, 2);
+        const pointLight = new THREE.PointLight(0x00BFFF, 2, 15);
+        pointLight.position.set(0, 0, 3);
         this.scene.add(pointLight);
 
+        // Additional point light for more glow
+        const pointLight2 = new THREE.PointLight(0x0080FF, 1.5, 12);
+        pointLight2.position.set(2, 2, 2);
+        this.scene.add(pointLight2);
+
         // Directional light
-        const directionalLight = new THREE.DirectionalLight(0x00BFFF, 0.5);
+        const directionalLight = new THREE.DirectionalLight(0x00BFFF, 0.8);
         directionalLight.position.set(1, 1, 1);
         this.scene.add(directionalLight);
     }
