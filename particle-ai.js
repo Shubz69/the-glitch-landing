@@ -107,10 +107,10 @@ class ParticleAIHead {
                 vec3 p = floor(x);
                 vec3 f = fract(x);
                 f = f * f * (3.0 - 2.0 * f);
-                float n = mix(mix(mix(hash(p + vec3(0,0,0)), hash(p + vec3(1,0,0)), f.x),
-                                mix(hash(p + vec3(0,1,0)), hash(p + vec3(1,1,0)), f.x), f.y),
-                            mix(mix(hash(p + vec3(0,0,1)), hash(p + vec3(1,0,1)), f.x),
-                                mix(hash(p + vec3(0,1,1)), hash(p + vec3(1,1,1)), f.x), f.y), f.z);
+                float n = mix(mix(mix(hash(p + vec3(0.0,0.0,0.0)), hash(p + vec3(1.0,0.0,0.0)), f.x),
+                                mix(hash(p + vec3(0.0,1.0,0.0)), hash(p + vec3(1.0,1.0,0.0)), f.x), f.y),
+                            mix(mix(hash(p + vec3(0.0,0.0,1.0)), hash(p + vec3(1.0,0.0,1.0)), f.x),
+                                mix(hash(p + vec3(0.0,1.0,1.0)), hash(p + vec3(1.0,1.0,1.0)), f.x), f.y), f.z);
                 return n;
             }
 
@@ -174,8 +174,39 @@ class ParticleAIHead {
             blending: THREE.AdditiveBlending
         });
 
+        // Add error handling for shader compilation
+        material.onBeforeCompile = (shader) => {
+            console.log('Compiling shaders...');
+        };
+
+        // Check for shader compilation errors
+        const checkShaderErrors = () => {
+            if (material.program && material.program.program) {
+                const gl = this.renderer.getContext();
+                const program = material.program.program;
+                
+                if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                    console.error('Shader program failed to link:', gl.getProgramInfoLog(program));
+                    console.error('Vertex shader log:', gl.getShaderInfoLog(material.program.vertexShader));
+                    console.error('Fragment shader log:', gl.getShaderInfoLog(material.program.fragmentShader));
+                }
+            }
+        };
+
+        // Check after a short delay to allow compilation
+        setTimeout(checkShaderErrors, 100);
+
         this.points = new THREE.Points(geometry, material);
         this.scene.add(this.points);
+
+        // Fallback material if shader fails
+        this.fallbackMaterial = new THREE.PointsMaterial({
+            color: 0x00BFFF,
+            size: 0.1,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
     }
 
     createLights() {
