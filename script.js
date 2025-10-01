@@ -186,7 +186,7 @@ if (contactForm) {
         };
         
         submitBtn.disabled = true;
-        btnText.textContent = 'Launching...';
+        btnText.textContent = 'Sending...';
         btnIcon.textContent = '⌛';
         
         try {
@@ -211,8 +211,8 @@ if (contactForm) {
                 contactForm.reset();
                 
                 setTimeout(() => {
-                    btnText.textContent = 'Launch Trading';
-                    btnIcon.textContent = '🚀';
+                    btnText.textContent = 'Send Message';
+                    btnIcon.textContent = '📧';
                     submitBtn.disabled = false;
                 }, 2000);
                 
@@ -227,8 +227,8 @@ if (contactForm) {
             statusMessage.className = 'status-message error';
             statusMessage.style.display = 'block';
             
-            btnText.textContent = 'Launch Trading';
-            btnIcon.textContent = '🚀';
+            btnText.textContent = 'Send Message';
+            btnIcon.textContent = '📧';
             submitBtn.disabled = false;
             
             setTimeout(() => {
